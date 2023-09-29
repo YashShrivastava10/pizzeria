@@ -19,8 +19,8 @@ const Header = () => {
         </div>
       </div>
       <div className="w-1/4 flex flex-row justify-evenly items-center">
-        <button className="text-slate-200 font-bold bg-blue-800 px-6 py-1 rounded">Log In</button>
-        <button className="text-slate-200 font-bold bg-blue-800 px-6 py-1 rounded">Cart</button>
+        <Link href="/login" className="text-slate-200 font-bold bg-blue-800 px-6 py-1 rounded">Log In</Link>
+        <Link href="/cart" className="text-slate-200 font-bold bg-blue-800 px-6 py-1 rounded">Cart</Link>
       </div>
     </div>
   )
