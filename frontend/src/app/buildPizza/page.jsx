@@ -1,6 +1,6 @@
 const BuildPizza = () => {
   return (
-    <div>Build Pizza</div>
+    <div className="text-black">Build Pizza</div>
   )
 }
 
