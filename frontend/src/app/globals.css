@@ -29,6 +29,20 @@ body {
 .btn{
   @apply text-slate-200 font-bold bg-blue-800 px-6 py-1 rounded-3xl hover:rounded hover:bg-amber-600 transition-all duration-300 ease-in
 }
+.email:placeholder-shown ~ .label-email, .pass:placeholder-shown ~ .label-pass, .name:placeholder-shown ~ .label-name{
+  transform: translateY(-35px);
+}
+.form-div{
+  @apply flex flex-col gap-2 justify-center items-start
+}
+.form-input{
+  @apply border-b-2 w-full outline-none caret-amber-600 placeholder:text-transparent text-amber-600
+}
+.label-pass, .label-email, .label-name{
+  transform: translateY(-55px);
+  transition: all 0.3s ease;
+  color: gray;
+}
 ::-webkit-scrollbar {
   width: 5px;
   height: 4px;

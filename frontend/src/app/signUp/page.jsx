@@ -1,6 +1,8 @@
+import SignInUp from "../components/SignInUp"
+
 const SignUp = () => {
   return (
-    <>Sign Up</>
+    <SignInUp status="signup" />
   )
 }
 
