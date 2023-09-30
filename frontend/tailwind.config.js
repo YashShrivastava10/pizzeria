@@ -12,6 +12,19 @@ module.exports = {
         'gradient-conic':
           'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
       },
+      animation: {
+        typing: 'typing 2s steps(8), blink 1s step-end infinite'
+      },
+      keyframes: {
+        blink: {
+          from: { "border-right-color": "transparent"},
+          "50%": { "border-right-color": "orange"}
+        },
+        typing: {
+          from: {width: "0%"},
+          to: {width: "7ch"}
+        }
+      },
     },
   },
   plugins: [],
