@@ -13,7 +13,8 @@ module.exports = {
           'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
       },
       animation: {
-        typing: 'typing 2s steps(8), blink 1s step-end infinite'
+        typing: 'typing 2s steps(8), blink 1s step-end infinite',
+        loading: 'loading 1.2s infinite'
       },
       keyframes: {
         blink: {
@@ -23,6 +24,19 @@ module.exports = {
         typing: {
           from: {width: "0%"},
           to: {width: "7ch"}
+        },
+        loading: {
+          "0%": {
+            transform: "rotate(0)",
+            "animation-timing-function": "cubic-bezier(0.55, 0.055, 0.675, 0.19)",
+        },
+        "50%": {
+            transform: "rotate(900deg)",
+            "animation-timing-function": "cubic-bezier(0.215, 0.61, 0.355, 1)",
+        },
+        "100%": {
+            transform: "rotate(1800deg)"
+        }
         }
       },
     },
