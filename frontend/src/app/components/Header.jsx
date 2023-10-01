@@ -3,11 +3,14 @@
 import Image from "next/image"
 import Link from "next/link"
 import logo from "../../../public/PizzeriaLogo.png"
-import { useEffect, useState } from "react"
+import hamburger from "../../../public/hamburger.png"
+import { useEffect, useRef, useState } from "react"
 
 const Header = () => {
 
-  const[clicked, setClicked] = useState(true)
+  const [clicked, setClicked] = useState(true)
+  const [menu, setMenu] = useState(false)
+  const initialRender = useRef(true)
 
   useEffect(() => {
     const delay = 500;
@@ -30,23 +33,56 @@ const Header = () => {
       clearTimeout(debounce);
     };
   }, [clicked]);
-  
+
+  useEffect(() => {
+    const ele = document.getElementById("hamburger")
+    const main = document.getElementById("main")
+    if (initialRender.current) {
+      initialRender.current = false;
+      return;
+    }
+    if (!menu) {
+      ele.classList.remove("animate-slideLeft")
+      ele.classList.add("animate-slideRight")
+      main.classList.add("overflow-auto")
+      main.classList.remove("overflow-hidden")
+    }
+    else {
+      ele.classList.remove("animate-slideRight")
+      ele.classList.add("animate-slideLeft")
+      main.classList.add("overflow-hidden")
+      main.classList.remove("overflow-auto")
+    }
+  }, [menu])
+
   return (
-    <div className="flex flex-row w-screen bg-black px-2 py-2 rounded sticky inset-0">
+    <div className="flex items-center md:flex-row w-screen bg-black p-2 sticky inset-0">
+      <div className="md:hidden absolute right-4" onClick={() => setMenu(!menu)}>
+        <Image src={hamburger} alt="Icon" height={20} width={20} />
+      </div>
+      <div className="flex translate-x-full absolute inset-0 bg-black h-screen w-screen flex-col justify-center items-center gap-10" id="hamburger">
+        <div className="absolute text-2xl text-amber-600 font-bold top-3 right-4" onClick={() => setMenu(!menu)}>X</div>
+        <Link href="/orderPizza" className="text-amber-600 text-2xl font-bold" onClick={() => setMenu(!menu)}>Order Pizza</Link>
+        <Link href="/buildPizza" className="text-amber-600 text-2xl font-bold" onClick={() => setMenu(!menu)}>Build Pizza</Link>
+        <Link href="/login" className="text-amber-600 text-2xl font-bold" onClick={() => setMenu(!menu)}>Log In</Link>
+        <Link href="/cart" className="text-amber-600 text-2xl font-bold" onClick={() => setMenu(!menu)}>Cart</Link>
+      </div>
       <div className="w-3/4 flex flex-row justify-between text-gray-500 font-bold">
         <div className="flex flex-row gap-x-5 items-center">
-          <Link href="/" className="text-2xl text-amber-600 overflow-hidden whitespace-nowrap" id="typing" onClick={() => setClicked(!clicked)}>Pizzeria</Link>
-          <Link href="/" onClick={() => setClicked(!clicked)}>
-            <Image src={logo} alt="Pizzeria Logo" height={45} width={45}/>
+          <div className="w-[10ch] flex items-center">
+            <Link href="/" className="text-2xl text-amber-600 overflow-hidden whitespace-nowrap" id="typing" onClick={() => setClicked(!clicked)}>Pizzeria</Link>
+          </div>
+          <Link href="/" className="header-nav" onClick={() => setClicked(!clicked)}>
+            <Image src={logo} alt="Pizzeria Logo" height={45} width={45} />
           </Link>
-          <Link href="/orderPizza">Order Pizza</Link>
-          <Link href="/buildPizza">Build Pizza</Link>
+          <Link className="header-nav" href="/orderPizza">Order Pizza</Link>
+          <Link className="header-nav" href="/buildPizza">Build Pizza</Link>
         </div>
         <div className="text-teal-400 font-bold flex items-center">
           <span>Hi Yash</span>
         </div>
       </div>
-      <div className="w-1/4 flex flex-row justify-evenly items-center">
+      <div className="header-nav md:w-1/4 md:flex md:flex-row md:justify-evenly md:items-center">
         <Link href="/login" className="btn">Log In</Link>
         <Link href="/cart" className="btn">Cart</Link>
       </div>

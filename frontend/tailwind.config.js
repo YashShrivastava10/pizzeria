@@ -14,7 +14,8 @@ module.exports = {
       },
       animation: {
         typing: 'typing 2s steps(8), blink 1s step-end infinite',
-        loading: 'loading 1.2s infinite'
+        slideRight: 'slideRight 0.5s ease forwards',
+        slideLeft: 'slideLeft 0.5s ease forwards'
       },
       keyframes: {
         blink: {
@@ -25,18 +26,13 @@ module.exports = {
           from: {width: "0%"},
           to: {width: "7ch"}
         },
-        loading: {
-          "0%": {
-            transform: "rotate(0)",
-            "animation-timing-function": "cubic-bezier(0.55, 0.055, 0.675, 0.19)",
+        slideLeft: {
+          from: {transform: "translateX(100%)"},
+          to: {transform: "translateX(0%)"}
         },
-        "50%": {
-            transform: "rotate(900deg)",
-            "animation-timing-function": "cubic-bezier(0.215, 0.61, 0.355, 1)",
-        },
-        "100%": {
-            transform: "rotate(1800deg)"
-        }
+        slideRight: {
+          from: {transform: "translateX(0%)"},
+          to: {transform: "translateX(100%)"}
         }
       },
     },

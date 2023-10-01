@@ -1,9 +1,7 @@
-"use client"; // To use hooks
 import Image from "next/image"
-import { useState } from "react"
 
 const Home = () => {
-  const [imageDesc, setImageDesc] = useState([
+  const imageDesc = [
     {
       "image": "https://image.shutterstock.com/z/stock-photo-raw-dough-for-pizza-with-ingredients-and-spices-on-table-526830277.jpg",
       "height": 300,
@@ -25,7 +23,7 @@ const Home = () => {
       "heading": "45 min delivery",
       "desc": ""
     },
-  ])
+  ]
 
   return (
     <div className="flex flex-col gap-3 p-5">
@@ -34,11 +32,11 @@ const Home = () => {
       <p>Ever since we launched the Tastiest Pan Pizza, ever, people have not been able to resist the softest, cheesiest, crunchiest, butteriest Domino's Fresh Pan Pizza. They have been leaving the stage in the middle of a performance and even finding excuses to be disqualified in a football match.</p>
       <p>We launched Fresh Pan Pizza Best Excuse Awards on our Facebook fan page. Fans were given situations where they had to come up with wacky and fun excuses. The person with the best excuse won the Best Excuse Badge and won Domino's vouchers. Their enthusiastic response proved that Pizzeria's Fresh Pan Pizza is the Tastiest Pan Pizza. Ever!</p>
       {imageDesc.map((data, index) =>
-        <div className={`w-full flex ${index === 1 && "flex-row-reverse"}`} key={index}>
-          <div className="w-1/2">
-            <Image src={data.image} alt={data.heading} height={data.height} width={data.width} />
+        <div className={`w-full md:flex-row md:p-0 md:border-none p-2 border-4 border-amber-600 flex-col flex ${index === 1 && "md:flex-row-reverse"}`} key={index}>
+          <div className="md:w-1/2 w-full">
+            <Image src={data.image} alt={data.heading} height={data.height} width={data.width} className="sm:w-full"/>
           </div>
-          <div className={`w-1/2 flex flex-col ${index === 2 ? "justify-center" : "justify-evenly"}`}>
+          <div className={`md:w-1/2 w-full md:ml-2 md:gap-0 gap-2 flex flex-col ${index === 2 ? "justify-center" : "justify-evenly"}`}>
             <span className="font-bold text-3xl">{data.heading}</span>
             <p>{data.desc}</p>
           </div>

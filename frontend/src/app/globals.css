@@ -43,6 +43,9 @@ body {
   transition: all 0.3s ease;
   color: gray;
 }
+.header-nav{
+  @apply hidden md:block
+}
 ::-webkit-scrollbar {
   width: 5px;
   height: 4px;
