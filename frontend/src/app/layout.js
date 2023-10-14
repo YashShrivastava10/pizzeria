@@ -1,3 +1,4 @@
+import Providers from './Provider'
 import Footer from './components/Footer'
 import Header from './components/Header'
 import './globals.css'
@@ -14,9 +15,11 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className='flex flex-col justify-between h-screen overflow-x-hidden' id="main">
-        <Header />
-        {children}
-        <Footer />
+        <Providers>
+          <Header />
+          {children}
+          <Footer />
+        </Providers>
       </body>
     </html>
   )
