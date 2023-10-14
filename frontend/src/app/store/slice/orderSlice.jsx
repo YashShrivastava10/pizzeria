@@ -1,4 +1,6 @@
-const { createSlice } = require("@reduxjs/toolkit");
+const { createSlice, createAction } = require("@reduxjs/toolkit");
+
+export const fetchPizzaDetailsRequest = createAction("order/fetchPizza")
 
 const orderSlice = createSlice({
   name: "order",
