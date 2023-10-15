@@ -1,11 +1,11 @@
 {
   "version": 2,
   "builds": [{
-    "src": "./pizzeriaBE.js",
+    "src": "./index.js",
     "use": "@vercel/node"
   }],
   "routes":[{
     "src": "/(.*)",
-    "dest": "./pizzeriaBE.js"
+    "dest": "/"
   }]
 }

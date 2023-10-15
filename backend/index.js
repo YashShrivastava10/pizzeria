@@ -4,10 +4,7 @@ import express from "express"
 import cors from "cors"
 const server = express()
 
-server.use(cors({
-  origin: ["https://pizzeria-psi.vercel.app"],
-  credentials: true
-}))
+server.use(cors())
 const port = 4000
 
 const collectionData = async(name) => {
