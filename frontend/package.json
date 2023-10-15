@@ -10,7 +10,6 @@
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.7",
-    "dotenv": "^16.3.1",
     "mongodb": "^6.1.0",
     "next": "latest",
     "react": "latest",
