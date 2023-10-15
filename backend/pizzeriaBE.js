@@ -2,7 +2,10 @@ const connectDB = require("./db")
 const server = require("express")()
 const cors = require("cors")
 
-server.use(cors())
+server.use(cors({
+  origin: ["https://pizzeria-psi.vercel.app"],
+  credentials: true
+}))
 const port = 4000
 
 collectionData = async(name) => {
