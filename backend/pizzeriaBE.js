@@ -16,6 +16,7 @@ const collectionData = async(name) => {
   return await collection.find().toArray()
 }
 
+server.get("/", (req, res) => res.send("Hello"))
 server.get("/pizza", async(req, res) => {
   const data = await collectionData("pizza")
   res.send(data)
