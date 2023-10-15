@@ -19,14 +19,15 @@ const collectionData = async(name) => {
 
 server.get("/", (req, res) => res.send("Hello"))
 server.get("/pizza", async (req, res) => {
-  try {
-    const data = await collectionData("pizza");
-    console.log("Pizza data:", data); // Add this line for debugging
-    res.send(data);
-  } catch (error) {
-    console.error("Error fetching pizza data:", error); // Add this line for debugging
-    res.status(500).send("Internal Server Error");
-  }
+  res.send("Pizza Details")
+  // try {
+  //   const data = await collectionData("pizza");
+  //   console.log("Pizza data:", data); // Add this line for debugging
+  //   res.send(data);
+  // } catch (error) {
+  //   console.error("Error fetching pizza data:", error); // Add this line for debugging
+  //   res.status(500).send("Internal Server Error");
+  // }
 });
 
 server.get("/users", async (req, res) => {
