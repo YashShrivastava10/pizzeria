@@ -34,7 +34,7 @@ const Home = () => {
       {imageDesc.map((data, index) =>
         <div className={`w-full md:flex-row md:p-0 md:border-none p-2 border-4 border-amber-600 flex-col flex ${index === 1 && "md:flex-row-reverse"}`} key={index}>
           <div className="md:w-1/2 w-full">
-            <Image src={data.image} alt={data.heading} height={data.height} width={data.width}/>
+            <Image src={data.image} alt={data.heading} height={data.height} width={data.width} className={`w-full md:w-[${data.width}px] md:h-[${data.height}px]`}/>
           </div>
           <div className={`md:w-1/2 w-full md:ml-2 md:gap-0 gap-2 flex flex-col ${index === 2 ? "justify-center" : "justify-evenly"}`}>
             <span className="font-bold text-3xl">{data.heading}</span>
