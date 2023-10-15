@@ -1,6 +1,8 @@
-const connectDB = require("./db")
-const server = require("express")()
-const cors = require("cors")
+
+import connectDB from "./db.js"
+import express from "express"
+import cors from "cors"
+const server = express()
 
 server.use(cors({
   origin: ["https://pizzeria-psi.vercel.app"],
@@ -8,7 +10,7 @@ server.use(cors({
 }))
 const port = 4000
 
-collectionData = async(name) => {
+const collectionData = async(name) => {
   const data = await connectDB()
   const collection = await data.collection(name)
   return await collection.find().toArray()

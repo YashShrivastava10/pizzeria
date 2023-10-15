@@ -1,4 +1,4 @@
-const  { MongoClient, ServerApiVersion } = require("mongodb");
+import { MongoClient, ServerApiVersion } from "mongodb";
 const url = "mongodb+srv://shrivastavayash10:simplepassword@cluster1.zxsuzyp.mongodb.net/?retryWrites=true&w=majority"
 const client = new MongoClient(url, {
   serverApi: {
@@ -15,4 +15,4 @@ async function connectToDB() {
   return client.db(dbName);
 }
 
-module.exports = connectToDB
+export default connectToDB
