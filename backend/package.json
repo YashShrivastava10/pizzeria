@@ -1,11 +1,11 @@
 {
   "name": "pizzeria",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "pizzeriaDB.js",
   "type": "module",
   "devDependencies": {},
   "scripts": {
-    "start": "node index.js",
+    "start": "node pizzeriaDB.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",

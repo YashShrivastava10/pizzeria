@@ -2,7 +2,7 @@ import { takeEvery, call, put } from 'redux-saga/effects';
 import { setPizzaDetails } from '../store/slice/orderSlice';
 
 function* getPizzaDetails(){
-  const response = yield call (fetch, "http://localhost:4000/pizza", {
+  const response = yield call (fetch, "https://pizzeria-b5if.vercel.app/pizza", {
     method: "GET",
     mode: "cors"
   })
