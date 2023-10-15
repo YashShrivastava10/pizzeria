@@ -1,5 +1,5 @@
-const { all } = require("redux-saga/effects");
-const { default: orderSaga } = require("./orderPizzaSaga");
+import { all } from "redux-saga/effects"
+import orderSaga from "./orderPizzaSaga"
 
 function* rootSaga(){
   yield all([orderSaga()])

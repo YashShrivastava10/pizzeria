@@ -19,7 +19,6 @@ server.get("/", (req, res) => res.send("Hello"))
 server.get("/pizza", async (req, res) => {
   try {
     const data = await collectionData("pizza");
-    console.log("Pizza data:", data); // Add this line for debugging
     res.send(data);
   } catch (error) {
     console.error("Error fetching pizza data:", error); // Add this line for debugging
@@ -30,7 +29,6 @@ server.get("/pizza", async (req, res) => {
 server.get("/users", async (req, res) => {
   try {
     const data = await collectionData("users");
-    console.log("Users data:", data); // Add this line for debugging
     res.send(data);
   } catch (error) {
     console.error("Error fetching users data:", error); // Add this line for debugging

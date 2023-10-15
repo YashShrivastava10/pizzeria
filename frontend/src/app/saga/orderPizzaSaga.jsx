@@ -1,8 +1,10 @@
 import { takeEvery, call, put } from 'redux-saga/effects';
 import { setPizzaDetails } from '../store/slice/orderSlice';
 
+const url = process.env.NEXT_PUBLIC_API
+
 function* getPizzaDetails(){
-  const response = yield call (fetch, "https://pizzeria-b5if.vercel.app/pizza", {
+  const response = yield call (fetch, url + "/pizza", {
     method: "GET",
     mode: "cors"
   })
