@@ -3,6 +3,7 @@ import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { fetchPizzaDetailsRequest } from "../store/slice/orderSlice"
 import Image from "next/image"
+import Loader from "../loading"
 
 const OrderPizza = () => {
   const dispatch = useDispatch()
@@ -15,7 +16,7 @@ const OrderPizza = () => {
 
   return (
     <div className="w-full h-fit px-2 py-2 flex justify-center items-start overflow-hidden overflow-y-scroll">
-      {pizzaDetails && pizzaDetails.length === 0 && <>Loading</>}
+      {pizzaDetails && pizzaDetails.length === 0 && <Loader />}
       <div className="flex flex-wrap items-start w-[90%] h-fit gap-2">
         {pizzaDetails && pizzaDetails.map((data, index) =>
           <div key={index} className="text-black border-2 w-full md:w-[49%] h-[250px] md:h-[200px] flex flex-wrap flex-col">

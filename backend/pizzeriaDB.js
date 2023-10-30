@@ -26,6 +26,17 @@ server.get("/pizza", async (req, res) => {
   }
 });
 
+server.get("/ingredients", async (req, res) => {
+  try {
+    const data = await collectionData("ingredients");
+    console.log(data);
+    res.send(data);
+  } catch (error) {
+    console.error("Error fetching pizza data:", error); // Add this line for debugging
+    res.status(500).send("Internal Server Error");
+  }
+});
+
 server.get("/users", async (req, res) => {
   try {
     const data = await collectionData("users");
