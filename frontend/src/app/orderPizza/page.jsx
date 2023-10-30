@@ -2,6 +2,7 @@
 import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { fetchPizzaDetailsRequest } from "../store/slice/orderSlice"
+import Image from "next/image"
 
 const OrderPizza = () => {
   const dispatch = useDispatch()
@@ -11,22 +12,31 @@ const OrderPizza = () => {
   useEffect(() => {
     dispatch(fetchPizzaDetailsRequest())
   }, [])
-  
+
   return (
-    <div className="w-full h-full px-2 py-1 flex justify-center items-center overflow-hidden overflow-y-scroll">
-      {!pizzaDetails && <>Loading</>}
-      <div className="flex flex-wrap w-[90%] h-full gap-2">
-      {pizzaDetails && pizzaDetails.map((data, index) => 
-        <div key={index} className="text-black border-2 w-[49%] h-fit flex flex-wrap flex-col">
-          <span>Name: {data.name}</span>
-          <span>Description: {data.description}</span>
-          <span>Image: {data.image}</span>
-          <span>Price: {data.price}</span>
-          <span>Type: {data.type}</span>
-          <span>Ingredients: {data.ingredients}</span>
-          <span>Toppings: {data.toppings}</span>
-        </div>)}
-        </div>
+    <div className="w-full h-fit px-2 py-2 flex justify-center items-start overflow-hidden overflow-y-scroll">
+      {pizzaDetails && pizzaDetails.length === 0 && <>Loading</>}
+      <div className="flex flex-wrap items-start w-[90%] h-fit gap-2">
+        {pizzaDetails && pizzaDetails.map((data, index) =>
+          <div key={index} className="text-black border-2 w-full md:w-[49%] h-[250px] md:h-[200px] flex flex-wrap flex-col">
+            <div className="flex w-full justify-center h-full px-1 py-1">
+              <div className="flex flex-col justify-around h-full items-center w-1/3">
+                <b>{data.name}</b>
+                <Image src={data.type === "veg" ? "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT0mNA0ot2tw1STV3ztYwLxKbKvhm7XmVbGXQ&usqp=CAU" : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSsNOENdNsWdiIEaDAwwOOwCSBWjiS8GFPbiA&usqp=CAU"} height={30} width={30}/>
+                <b>&#8377;{data.price}</b>
+              </div>
+              <div className="flex flex-col justify-around items-start h-full text-xs w-2/3">
+                <span>{data.description}</span>
+                <span><b>Ingredients:</b> {data.ingredients.filter(element => element !== undefined).join(', ')}</span>
+                <span><b>Toppings:</b> {data.topping.filter(element => element !== undefined).join(', ')}</span>
+              </div>
+              <div className="flex flex-col justify-between h-full items-center w-1/3">
+                <Image src={data.image} width={150} height={150} />
+                <button className="btn cart-btn px-[0px] text-[8px] sm:text-sm w-full text-xs md:px-[0px] md:text-xs xl:md:text-sm">Add To Cart</button>
+              </div>
+            </div>
+          </div>)}
+      </div>
     </div>
   )
 }

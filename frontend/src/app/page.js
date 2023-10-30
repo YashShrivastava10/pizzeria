@@ -26,7 +26,7 @@ const Home = () => {
   ]
 
   return (
-    <div className="flex flex-col gap-3 p-5">
+    <div className="flex flex-col gap-3 p-5 h-fit overflow-hidden overflow-y-scroll">
       <div className="text-center font-bold text-3xl">Our Story</div>
       <p>We believe in good. We launched Fresh Pan Pizza Best Excuse Awards on our Facebook fan page. Fans were given situations where they had to come up with wacky and fun excuses. The person with the best excuse won the Best Excuse Badge and won Pizzeria's vouchers. Their enthusiastic response proved that Pizzeria's Fresh Pan Pizza is the Tastiest Pan Pizza. Ever!</p>
       <p>Ever since we launched the Tastiest Pan Pizza, ever, people have not been able to resist the softest, cheesiest, crunchiest, butteriest Domino's Fresh Pan Pizza. They have been leaving the stage in the middle of a performance and even finding excuses to be disqualified in a football match.</p>

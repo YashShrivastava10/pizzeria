@@ -27,7 +27,10 @@ body {
 } */
 
 .btn{
-  @apply text-slate-200 font-bold bg-blue-800 px-6 py-1 rounded-3xl hover:rounded hover:bg-amber-600 transition-all duration-300 ease-in
+  @apply text-slate-200 font-bold bg-blue-800 sm:px-[20px] sm:py-[2px] rounded-3xl hover:rounded hover:bg-amber-600 transition-all duration-300 ease-in
+}
+.cart-btn{
+  @apply hover:bg-blue-800 bg-amber-600
 }
 .email:placeholder-shown ~ .label-email, .pass:placeholder-shown ~ .label-pass, .name:placeholder-shown ~ .label-name{
   transform: translateY(-35px);
