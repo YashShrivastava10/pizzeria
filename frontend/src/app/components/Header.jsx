@@ -5,12 +5,14 @@ import Link from "next/link"
 import logo from "../../../public/PizzeriaLogo.png"
 import hamburger from "../../../public/hamburger.png"
 import { useEffect, useRef, useState } from "react"
+import { useSelector } from "react-redux";
 
 const Header = () => {
 
   const [clicked, setClicked] = useState(true)
   const [menu, setMenu] = useState(false)
   const initialRender = useRef(true)
+  const { cartCount } = useSelector(state => state.cart)
 
   useEffect(() => {
     const delay = 500;
@@ -84,7 +86,11 @@ const Header = () => {
       </div>
       <div className="header-nav md:w-1/4 md:flex md:flex-row md:justify-evenly md:items-center">
         <Link href="/login" className="btn">Log In</Link>
-        <Link href="/cart" className="btn">Cart</Link>
+        <div className="relative">
+          <Link href="/cart" className="btn">Cart</Link>
+          <div className="absolute h-[20px] w-[20px] -top-2 -right-2 bg-amber-500 text-white text-xs font-bold rounded-full flex justify-center items-center">
+            <span>{cartCount}</span></div>
+        </div>
       </div>
     </div>
   )

@@ -4,14 +4,17 @@ export const fetchIngredientsRequest = createAction("order/fetchIngredients")
 
 const buildSlice = createSlice({
   name: "build",
-  initialState: {ingredients: []},
+  initialState: {ingredients: [], ingredientsTotalPrice: 0},
   reducers: {
     setIngredients(state, action) {
       state.ingredients = action.payload
+    },
+    setIngrdientsTotalPrice(state, action){
+      state.ingredientsTotalPrice = action.payload
     } 
   }
 })
 
 export default buildSlice.reducer
 
-export const { setIngredients } = buildSlice.actions
+export const { setIngredients, setIngrdientsTotalPrice } = buildSlice.actions
