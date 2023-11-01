@@ -1,11 +1,23 @@
 {
   "version": 2,
-  "builds": [{
-    "src": "./src/pizzeriaDB.js",
-    "use": "@vercel/node"
-  }],
-  "routes":[{
-    "src": "/src/(.*)",
-    "dest": "src/pizzeriaDB.js"
-  }]
+  "builds": [
+    {
+      "src": "./src/server.js",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/src/routes/auth.js",
+      "dest": "./src/routes/auth.js"
+    },
+    {
+      "src": "/src/routes/client.js",
+      "dest": "./src/routes/client.js"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "./src/server.js"
+    }
+  ]
 }
