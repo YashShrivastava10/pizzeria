@@ -1,9 +1,10 @@
 import express from "express"
-// import { getIngredientDetails, getPizzaDetails } from "../controller/client"
+import { getIngredientDetails, getPizzaDetails } from "../controllers/client.js"
+
 
 const router = express.Router()
 
-// router.post("/pizza", getPizzaDetails)
-// router.post("/ingredients", getIngredientDetails)
+router.get("/pizza", getPizzaDetails)
+router.get("/ingredients", getIngredientDetails)
 
 export default router

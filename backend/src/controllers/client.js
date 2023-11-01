@@ -1,4 +1,4 @@
-import { collectionData } from "../utils/db";
+import { collectionData } from "../utils/db.js";
 
 export const getPizzaDetails = async(req, res) => {
   try {
