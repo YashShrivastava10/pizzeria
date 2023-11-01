@@ -6,6 +6,6 @@
   }],
   "routes":[{
     "src": "/(.*)",
-    "dest": "/src/pizzeriaDB.jss"
+    "dest": "/src/pizzeriaDB.js"
   }]
 }
