@@ -1,3 +1,11 @@
 {
-  "rewrites": [{ "source": "/(.*)", "destination": "./src/pizzeriaDB.js" }]
+  "version": 2,
+  "builds": [{
+    "src": ".src/pizzeriaDB.js",
+    "use": "@vercel/node"
+  }],
+  "routes":[{
+    "src": "/(.*)",
+    "dest": "/src/pizzeriaDB.jss"
+  }]
 }
