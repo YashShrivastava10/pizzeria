@@ -16,7 +16,7 @@ const client = new MongoClient(url, {
 
 let isConnected = false;
 
-async function connectToDB() {
+async function connectDB() {
   if (!isConnected) {
     try {
       await client.connect();
@@ -30,4 +30,10 @@ async function connectToDB() {
   return client.db(dbName);
 }
 
-export default connectToDB;
+export default connectDB;
+
+export const collectionData = async (name) => {
+  const data = await connectDB()
+  const collection = data.collection(name)
+  return await collection.find().toArray()
+}
