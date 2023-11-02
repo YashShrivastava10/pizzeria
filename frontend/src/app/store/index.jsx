@@ -12,7 +12,7 @@ const Store = configureStore({
     order: orderSlice,
     build: buildSlice,
     cart: cartSlice,
-    user: userSlice
+    user: userSlice,
   },
   middleware: [sagaMiddleware]
 })

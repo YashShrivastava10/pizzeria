@@ -57,7 +57,7 @@ const Header = () => {
       main.classList.remove("overflow-auto")
     }
   }, [menu])
-  
+
   return (
     <div className="flex items-center md:flex-row w-screen bg-black p-2 sticky inset-0">
       <div className="md:hidden absolute right-4" onClick={() => setMenu(!menu)}>
@@ -89,7 +89,7 @@ const Header = () => {
         <Link href="/login" className="btn">Log {!loggedInStatus ? "In" : "Out"}</Link>
         <div className="relative btn">
           <Link href="/cart">Cart</Link>
-          <div className="absolute h-[20px] w-[20px] -top-2 -right-2 bg-amber-500 text-white text-xs font-bold rounded-full flex justify-center items-center">
+          <div className={`absolute h-[20px] w-[20px] -top-2 -right-2 bg-amber-500 text-white text-xs font-bold rounded-full ${loggedInStatus ? "flex" : "hidden"} justify-center items-center`}>
             <span>{cartCount}</span></div>
         </div>
       </div>

@@ -11,7 +11,7 @@ function* login(user){
   })
   if(response.ok){
     const data = yield response.json()
-    if(data.success){
+     if(data.success){
       const user = data["data"]
       yield put(setUser({ user: (({_id, ...user}) => user)(user), loggedInStatus: true }))
     }

@@ -1,19 +1,23 @@
 "use client"
+
 import Link from "next/link"
 import hide from "../../../public/hide.png"
 import show from "../../../public/show.png"
 import login from "../../../public/login.png"
 import Image from "next/image"
-import { useState } from "react"
-import { useDispatch } from "react-redux"
+import { useEffect, useState } from "react"
+import { useDispatch, useSelector } from "react-redux"
 import { loginRequest, signUpRequest } from "../store/slice/userSlice"
+import { useRouter } from "next/navigation"
 
 const SignInUp = ({ status }) => {
 
   const dispatch = useDispatch()
   const [passwordHidden, setPasswordHidden] = useState(true)
   const [user, setUser] = useState({name: "", email: "", pass: ""})
-
+  const { loggedInStatus } = useSelector(state => state.user)
+  const router = useRouter()
+  
   const handleUser = (e) => {
     const name = e.target.name
     const value = e.target.value
@@ -21,11 +25,14 @@ const SignInUp = ({ status }) => {
     setUser(updatedUser)
   }
 
-  const handleSubmit = async(e) => {
+  useEffect(() => {
+    if(loggedInStatus) router.push("/")
+  }, [loggedInStatus])
+
+  const handleSubmit = (e) => {
     e.preventDefault()
-    if(status === "signup") await dispatch(signUpRequest(user))
-    else await dispatch(loginRequest((({name, ...user}) => user)(user)))
-  console.log("A");
+    if(status === "signup") dispatch(signUpRequest(user))
+    else dispatch(loginRequest((({name, ...user}) => user)(user)))
   }
 
   return (
