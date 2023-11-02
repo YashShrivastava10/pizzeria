@@ -6,12 +6,8 @@ const buildSlice = createSlice({
   name: "build",
   initialState: {ingredients: [], ingredientsTotalPrice: 0},
   reducers: {
-    setIngredients(state, action) {
-      state.ingredients = action.payload
-    },
-    setIngrdientsTotalPrice(state, action){
-      state.ingredientsTotalPrice = action.payload
-    } 
+    setIngredients: (state, action) => ({...state, ingredients: action.payload}),
+    setIngrdientsTotalPrice: (state, action) => ({...state, ingredientsTotalPrice: action.payload}),
   }
 })
 

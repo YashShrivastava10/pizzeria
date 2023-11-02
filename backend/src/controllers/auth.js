@@ -5,8 +5,8 @@ export const login = async(req, res) => {
   try {
     let data = await connectDB()
     const collection = data.collection("users")
-
-    const { email, pass } = req.query
+    
+    const { email, pass } = req.body
 
     data = await collection.findOne({ email: email })
 
@@ -27,7 +27,7 @@ export const signUp = async(req, res) => {
     let data = await connectDB()
     const collection = data.collection("users")
 
-    const { name, email, pass } = req.query
+    const { name, email, pass } = req.body
 
     data = await collection.find({ email: email }).toArray()
 

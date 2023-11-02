@@ -5,6 +5,7 @@ import clientRoutes from "./routes/client.js"
 
 const server = express()
 server.use(cors())
+server.use(express.json())
 const port = 4000
 
 server.use(authRoutes)

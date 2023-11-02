@@ -9,7 +9,6 @@ import Loader from "../loading"
 const BuildPizza = () => {
   const { ingredients, ingredientsTotalPrice } = useSelector(state => state.build)
   const dispatch = useDispatch()
-
   useEffect(() => {
     dispatch(fetchIngredientsRequest())
   }, [])

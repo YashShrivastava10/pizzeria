@@ -13,6 +13,7 @@ const Header = () => {
   const [menu, setMenu] = useState(false)
   const initialRender = useRef(true)
   const { cartCount } = useSelector(state => state.cart)
+  const { user, loggedInStatus } = useSelector(state => state.user)
 
   useEffect(() => {
     const delay = 500;
@@ -56,7 +57,7 @@ const Header = () => {
       main.classList.remove("overflow-auto")
     }
   }, [menu])
-
+  
   return (
     <div className="flex items-center md:flex-row w-screen bg-black p-2 sticky inset-0">
       <div className="md:hidden absolute right-4" onClick={() => setMenu(!menu)}>
@@ -80,14 +81,14 @@ const Header = () => {
           <Link className="header-nav" href="/orderPizza">Order Pizza</Link>
           <Link className="header-nav" href="/buildPizza">Build Pizza</Link>
         </div>
-        <div className="text-teal-400 font-bold flex items-center">
-          <span>Hi Yash</span>
+        <div className={`text-teal-400 font-bold ${!loggedInStatus ? "hidden" : "flex"} items-center`}>
+          <span>Hi {user?.name}</span>
         </div>
       </div>
       <div className="header-nav md:w-1/4 md:flex md:flex-row md:justify-evenly md:items-center">
-        <Link href="/login" className="btn">Log In</Link>
-        <div className="relative">
-          <Link href="/cart" className="btn">Cart</Link>
+        <Link href="/login" className="btn">Log {!loggedInStatus ? "In" : "Out"}</Link>
+        <div className="relative btn">
+          <Link href="/cart">Cart</Link>
           <div className="absolute h-[20px] w-[20px] -top-2 -right-2 bg-amber-500 text-white text-xs font-bold rounded-full flex justify-center items-center">
             <span>{cartCount}</span></div>
         </div>

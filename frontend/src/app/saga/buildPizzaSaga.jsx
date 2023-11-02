@@ -1,7 +1,6 @@
 import { takeEvery, call, put } from 'redux-saga/effects';
 import { setIngredients } from '../store/slice/buildSlice';
-
-const url = process.env.NEXT_PUBLIC_API
+import { url } from "./rootSaga";
 
 function* getIngredients(){
   const response = yield call (fetch, url + "/ingredients", {

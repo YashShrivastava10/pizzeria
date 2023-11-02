@@ -1,7 +1,6 @@
 import { takeEvery, call, put } from 'redux-saga/effects';
 import { setPizzaDetails } from '../store/slice/orderSlice';
-
-const url = process.env.NEXT_PUBLIC_API
+import { url } from "./rootSaga";
 
 function* getPizzaDetails(){
   const response = yield call (fetch, url + "/pizza", {
