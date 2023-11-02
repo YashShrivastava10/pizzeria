@@ -5,15 +5,24 @@ import Link from "next/link"
 import logo from "../../../public/PizzeriaLogo.png"
 import hamburger from "../../../public/hamburger.png"
 import { useEffect, useRef, useState } from "react"
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { Auth } from "../helper/authHelper";
+import { setUser } from "../store/slice/userSlice";
 
 const Header = () => {
+
+  const dispatch = useDispatch()
 
   const [clicked, setClicked] = useState(true)
   const [menu, setMenu] = useState(false)
   const initialRender = useRef(true)
   const { cartCount } = useSelector(state => state.cart)
   const { user, loggedInStatus } = useSelector(state => state.user)
+
+  useEffect(() => {
+    const details = JSON.parse(localStorage.getItem("user"))
+    if(details)  dispatch(setUser({user: details.user, loggedInStatus: true}))
+  }, [])
 
   useEffect(() => {
     const delay = 500;
@@ -58,6 +67,11 @@ const Header = () => {
     }
   }, [menu])
 
+  const logout = () => {
+    localStorage.setItem("user", null)
+    dispatch(setUser({user: {}, loggedInStatus: false}))
+  }
+
   return (
     <div className="flex items-center md:flex-row w-screen bg-black p-2 sticky inset-0">
       <div className="md:hidden absolute right-4" onClick={() => setMenu(!menu)}>
@@ -86,7 +100,7 @@ const Header = () => {
         </div>
       </div>
       <div className="header-nav md:w-1/4 md:flex md:flex-row md:justify-evenly md:items-center">
-        <Link href="/login" className="btn">Log {!loggedInStatus ? "In" : "Out"}</Link>
+        <Link href={!loggedInStatus ? "/login": "/"} className="btn" onClick={logout}>Log {!loggedInStatus ? "In" : "Out"}</Link>
         <div className="relative btn">
           <Link href="/cart">Cart</Link>
           <div className={`absolute h-[20px] w-[20px] -top-2 -right-2 bg-amber-500 text-white text-xs font-bold rounded-full ${loggedInStatus ? "flex" : "hidden"} justify-center items-center`}>

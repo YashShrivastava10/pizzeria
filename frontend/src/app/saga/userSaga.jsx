@@ -13,7 +13,9 @@ function* login(user){
     const data = yield response.json()
      if(data.success){
       const user = data["data"]
-      yield put(setUser({ user: (({_id, ...user}) => user)(user), loggedInStatus: true }))
+      const details = { user: (({_id, ...user}) => user)(user), loggedInStatus: true }
+      localStorage.setItem("user", JSON.stringify(details));
+      yield put(setUser(details))
     }
   }
 }
