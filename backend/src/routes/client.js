@@ -1,10 +1,12 @@
 import express from "express"
-import { getIngredientDetails, getPizzaDetails } from "../controllers/client.js"
+import { addToCart, getIngredientDetails, getPizzaDetails } from "../controllers/client.js"
+import { authMiddleware } from "../middleware/authMiddleware.js"
 
 
 const router = express.Router()
 
 router.get("/pizza", getPizzaDetails)
 router.get("/ingredients", getIngredientDetails)
+router.post("/addToCart", authMiddleware, addToCart)
 
 export default router

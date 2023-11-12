@@ -1,5 +1,6 @@
 import connectDB from "../utils/db.js"
 import { encrypt, verifyPassword } from "../utils/password.js"
+import jwt from "jsonwebtoken"
 
 export const login = async(req, res) => {
   try {
@@ -12,7 +13,10 @@ export const login = async(req, res) => {
 
     if (!data) return res.status(200).send({ success: false, message: "Email Id doest not exist", data: {} })
 
-    if (await verifyPassword(pass, data.password)) return res.status(200).send({ success: true, message: "Login Successfull", data: (({ password, ...data }) => data)(data) })
+    if (await verifyPassword(pass, data.password)) {
+      const token = jwt.sign({ userId: data._id, email: data.email }, process.env.JWT_SECRET_KEY)
+      return res.status(200).send({ token, success: true, message: "Login Successfull", data: (({ password, ...data }) => data)(data) })
+    }
 
     return res.status(200).send({ success: false, message: "Incorrect Password", data: {} })
   }
@@ -35,10 +39,13 @@ export const signUp = async(req, res) => {
       const hash = await encrypt(pass)
       const result = await collection.insertOne({ name, email, password: hash })
 
-      if(result.acknowledged) return res.status(200).send({ success: true, message: "Sign In Successfull" })
-      else return res.status(200).send({ success: false, message: "Sign In Failed" })
+      if(result.acknowledged) {
+        const token = jwt.sign({ email: email }, process.env.JWT_SECRET_KEY)
+        return res.status(200).send({ token, success: true, message: "Sign In Successfull" })
+      }
+      return res.status(200).send({ success: false, message: "Sign In Failed" })
     }
-    else return res.status(200).send({ success: false, message: "Email Id already Exist" })
+    return res.status(200).send({ success: false, message: "Email Id already Exist" })
   }
   catch(error){
     console.error("Error sigin:", error);
