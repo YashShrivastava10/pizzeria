@@ -8,7 +8,7 @@ const orderSlice = createSlice({
   name: "order",
   initialState: {pizzaDetails: []},
   reducers: {
-    setPizzaDetails: (state, action) => ({...state, pizzaDetails: action.payload}),
+    setPizzaDetails: (state, action) => ({...state, pizzaDetails: [...action.payload]}),
   }
 })
 

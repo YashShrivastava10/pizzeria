@@ -6,6 +6,5 @@ export const clearAuth = dispatch => {
 }
 
 export const checkUser = () => {
-  console.log(localStorage.getItem("user"));
   return localStorage.getItem("user") ? true : false
 }

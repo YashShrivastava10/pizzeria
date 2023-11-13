@@ -1,6 +1,7 @@
 import Image from "next/image"
 
-export const PizzaCard = ({ index, data, addToCart}) => {
+export const PizzaCard = ({ index, data, addToCart, quantity, increment, decrement}) => {
+  const quant = quantity[data.id]
   return (
     <div key={index} className="text-black border-2 w-full md:w-[49%] h-[250px] md:h-[200px] flex flex-wrap flex-col">
       <div className="flex w-full justify-center h-full px-1 py-1">
@@ -16,7 +17,13 @@ export const PizzaCard = ({ index, data, addToCart}) => {
         </div>
         <div className="flex flex-col justify-evenly h-full items-center w-1/3">
           <Image src={data.image} width={150} height={150} alt="" />
-          <button className="btn cart-btn px-[0px] text-[8px] sm:text-sm w-full text-xs md:px-[0px] md:text-xs xl:md:text-sm" onClick={() => addToCart(data.id)}>Add To Cart</button>
+          {quant !== 0 ? 
+            <div className="w-full flex">
+              <button className="rounded-l-full qty-btn" onClick={() => increment(data.id, quant - 1)}>-</button>
+              <span className="border-t border-b border w-full text-center">{quantity[data.id]}</span>
+              <button className="rounded-r-full qty-btn" onClick={() => increment(data.id, quant + 1)}>+</button>
+            </div> : 
+            <button className="btn cart-btn px-[0px] text-[8px] sm:text-sm w-full text-xs md:px-[0px] md:text-xs xl:md:text-sm" onClick={() => addToCart(data.id)}>Add To Cart</button>}
         </div>
       </div>
     </div>
