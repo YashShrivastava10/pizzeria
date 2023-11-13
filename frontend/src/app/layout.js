@@ -1,6 +1,7 @@
 import Providers from './Provider'
 import Footer from './components/Footer'
 import Header from './components/Header'
+import { Toast } from './components/Toast'
 import './globals.css'
 import { Inter } from 'next/font/google'
 
@@ -17,6 +18,7 @@ export default function RootLayout({ children }) {
       <body className='flex flex-col justify-between h-screen overflow-x-hidden' id="main">
         <Providers>
           <Header />
+          <Toast />
           {children}
           <Footer />
         </Providers>

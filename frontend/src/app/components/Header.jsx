@@ -6,7 +6,7 @@ import logo from "../../../public/PizzeriaLogo.png"
 import hamburger from "../../../public/hamburger.png"
 import { useEffect, useRef, useState } from "react"
 import { useDispatch, useSelector } from "react-redux";
-import { Auth } from "../helper/authHelper";
+import { Auth, clearAuth } from "../helper/authHelper";
 import { setUser } from "../store/slice/userSlice";
 
 const Header = () => {
@@ -67,9 +67,9 @@ const Header = () => {
     }
   }, [menu])
 
+
   const logout = () => {
-    localStorage.setItem("user", null)
-    dispatch(setUser({user: {}, loggedInStatus: false}))
+    clearAuth(dispatch)
   }
 
   return (

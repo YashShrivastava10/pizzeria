@@ -1,22 +1,27 @@
 "use client"
 import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { fetchPizzaDetailsRequest } from "../store/slice/orderSlice"
+import { addToCartRequest, fetchPizzaDetailsRequest } from "../store/slice/orderSlice"
 import Image from "next/image"
 import Loader from "../loading"
-import { setCartCount } from "../store/slice/cartSlice"
+import { checkUser } from "../helper/authHelper"
+import { toast } from 'react-toastify';
 
 const OrderPizza = () => {
   const dispatch = useDispatch()
   const { pizzaDetails } = useSelector(state => state.order);
-  const { cartCount } = useSelector(state => state.cart);
 
   useEffect(() => {
     dispatch(fetchPizzaDetailsRequest())
   }, [])
 
   const addToCart = (id) => {
-    dispatch(setCartCount(cartCount + 1))
+    if(checkUser()){
+      dispatch(addToCartRequest(id))
+    }
+    else{
+      toast.warn("Please Login to continue")
+    }
   }
 
   return (
@@ -37,7 +42,7 @@ const OrderPizza = () => {
                   <span><b>Toppings:</b> {data.topping.filter(element => element !== undefined).join(', ')}</span>
                 </div>
                 <div className="flex flex-col justify-evenly h-full items-center w-1/3">
-                  <Image src={data.image} width={150} height={150} />
+                  <Image src={data.image} width={150} height={150} alt=""/>
                   <button className="btn cart-btn px-[0px] text-[8px] sm:text-sm w-full text-xs md:px-[0px] md:text-xs xl:md:text-sm" onClick={() => addToCart(data.id)}>Add To Cart</button>
                 </div>
               </div>

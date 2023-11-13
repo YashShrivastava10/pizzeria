@@ -62,3 +62,19 @@ export const addToCart = async (req, res) => {
     res.status(500).send("Internal Server Error");
   }
 }
+
+export const cartCount = async(req, res) => {
+  try{
+    const { email } = req.user
+
+    let data = await connectDB()
+    const collection = data.collection("cart")
+
+    const details = await collection.findOne({ userId: email })
+    return res.status(200).send({ success: true, count: details.details.length })
+  }
+  catch (error) {
+    console.error("Error couting the item:", error);
+    res.status(500).send("Internal Server Error");
+  }
+}
