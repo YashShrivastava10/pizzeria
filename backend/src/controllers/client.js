@@ -71,7 +71,8 @@ export const cartCount = async(req, res) => {
     const collection = data.collection("cart")
 
     const details = await collection.findOne({ userId: email })
-    return res.status(200).send({ success: true, count: details.details.length })
+    const length = details ? details.details.reduce((acc, value) => acc + value.qty, 0) : 0
+    return res.status(200).send({ success: true, count: length })
   }
   catch (error) {
     console.error("Error couting the item:", error);

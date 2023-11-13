@@ -8,6 +8,8 @@ import { useEffect, useRef, useState } from "react"
 import { useDispatch, useSelector } from "react-redux";
 import { Auth, clearAuth } from "../helper/authHelper";
 import { setUser } from "../store/slice/userSlice";
+import { useRouter, useCurrentRoute, usePathname } from "next/navigation";
+import { toast } from "react-toastify";
 
 const Header = () => {
 
@@ -16,6 +18,7 @@ const Header = () => {
   const [clicked, setClicked] = useState(true)
   const [menu, setMenu] = useState(false)
   const initialRender = useRef(true)
+  const pathname = usePathname()
   const { cartCount } = useSelector(state => state.cart)
   const { user, loggedInStatus } = useSelector(state => state.user)
 
@@ -67,9 +70,14 @@ const Header = () => {
     }
   }, [menu])
 
-
   const logout = () => {
-    clearAuth(dispatch)
+    if(loggedInStatus)
+      clearAuth(dispatch)
+  }
+
+  const cart = () => {
+    if(!loggedInStatus)
+      toast.warn("Please Login")
   }
 
   return (
@@ -102,7 +110,7 @@ const Header = () => {
       <div className="header-nav md:w-1/4 md:flex md:flex-row md:justify-evenly md:items-center">
         <Link href={!loggedInStatus ? "/login": "/"} className="btn" onClick={logout}>Log {!loggedInStatus ? "In" : "Out"}</Link>
         <div className="relative btn">
-          <Link href="/cart">Cart</Link>
+          <Link href={!loggedInStatus ? `${pathname}` :"/cart"} onClick={cart}>Cart</Link>
           <div className={`absolute h-[20px] w-[20px] -top-2 -right-2 bg-amber-500 text-white text-xs font-bold rounded-full ${loggedInStatus ? "flex" : "hidden"} justify-center items-center`}>
             <span>{cartCount}</span></div>
         </div>
