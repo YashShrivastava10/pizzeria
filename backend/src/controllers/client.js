@@ -20,6 +20,33 @@ export const getIngredientDetails = async (req, res) => {
   }
 }
 
+export const cartDetails = async (req, res) => {
+  try {
+    const { email } = req.user
+
+    // Connect to DB and fetch cart and pizza collection
+    let data = await connectDB()
+    const cart = data.collection("cart")
+    const pizzaDetails = data.collection("pizza")
+
+    // Get ids of items in user's cart
+    // Use nullish coalescing operator to assign default value if value is not present
+    const { details } = (await cart.findOne({ userId: email })) ?? {details: []}
+
+    // Get details of item and add qty
+    const promises = details.map(async item => {
+      const pizzaDetail = await pizzaDetails.findOne({ id: item.id });
+      return { ...pizzaDetail, qty: item.qty };
+    });
+    const results = await Promise.all(promises);
+
+    res.send(results);
+  } catch (error) {
+    console.error("Error fetching cart data:", error);
+    res.status(500).send("Internal Server Error");
+  }
+}
+
 const response = (result, res) => {
   if (result.acknowledged) return res.status(200).send({ success: true })
   return res.status(400).send({ success: false })
@@ -28,33 +55,37 @@ const response = (result, res) => {
 export const addToCart = async (req, res) => {
   try {
     const { email } = req.user
-    const { id } = req.query
+    const { id, status } = req.query
 
     let data = await connectDB()
     const collection = data.collection("cart")
 
-    // Check if user has cart or not
-    const details = await collection.findOne({ userId: email })
-    // If user has cart
-    if (details) {
-      // Check if item is new or existing
-      const itemFilter = { userId: email, 'details.id': id }
-      const find = await collection.findOne(itemFilter)
-      // If item exists
-      if (find) {
-        const result = await collection.updateOne(itemFilter, { $inc: { 'details.$.qty': 1 } })
-        return response(result, res)
+    const itemFilter = { userId: email, 'details.id': id }
+    if (status !== "add") {
+      const qty = status === "inc" ? 1 : -1
+      let result = await collection.updateOne(itemFilter, { $inc: { 'details.$.qty': qty } })
+      if (status === "dec") {
+        const userCart = await collection.findOne({ userId: email })
+        const updatedCart = userCart.details.filter(item => item.qty > 0);
+        if (!updatedCart.length) {
+          result = await collection.deleteOne({ userId: email })
+        }
+        else{
+          result = await collection.updateOne({ userId: email }, { $set: { details: updatedCart } });
+        }
       }
-      // If item is new
-      else {
+      return response(result, res)
+    }
+    else{
+      const details = await collection.findOne({ userId: email })
+      if (details) {
         const result = await collection.updateOne({ userId: email }, { $push: { details: { id, qty: 1 } } })
         return response(result, res)
       }
-    }
-    // If user don't have cart
-    else {
-      const result = await collection.insertOne({ userId: email, details: [{ id, qty: 1 }] })
-      return response(result, res)
+      else {
+        const result = await collection.insertOne({ userId: email, details: [{ id, qty: 1 }] })
+        return response(result, res)
+      }
     }
   }
   catch (error) {
@@ -62,6 +93,7 @@ export const addToCart = async (req, res) => {
     res.status(500).send("Internal Server Error");
   }
 }
+
 
 export const cartCount = async(req, res) => {
   try{

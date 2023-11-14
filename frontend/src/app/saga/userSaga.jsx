@@ -2,7 +2,7 @@ import { toast } from "react-toastify";
 import { setUser } from "../store/slice/userSlice";
 import { url } from "./rootSaga";
 import { takeEvery, call, put } from "redux-saga/effects"
-import { cartCount } from "./orderPizzaSaga";
+import { cartCount } from "./cartSaga";
 
 function* login(user){
   const response = yield call(fetch, url + "/login", {
