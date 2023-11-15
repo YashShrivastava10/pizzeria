@@ -94,6 +94,22 @@ export const addToCart = async (req, res) => {
   }
 }
 
+export const updateCart = async(req, res) => {
+  try{
+    const { email } = req.user
+    const { qty, id } = req.query
+
+    let data = await connectDB()
+    const collection = data.collection("cart")
+
+    const result = await collection.updateOne({ userId: email, 'details.id': id }, { $set: { 'details.$.qty': +qty } });
+    response(result, res)
+  }
+  catch (error) {
+    console.error("Error updating cart:", error);
+    res.status(500).send("Internal Server Error");
+  }
+}
 
 export const cartCount = async(req, res) => {
   try{

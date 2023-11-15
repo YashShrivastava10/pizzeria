@@ -28,9 +28,24 @@ export function* cartDetails(){
   }
 }
 
+function* updateCart(payload){
+  const { token } = JSON.parse(localStorage.getItem("user")).user
+  const { id, qty } = payload.payload
+  const response = yield call (fetch, url + `/updateCart?id=${id}&qty=${qty}`, {
+    method: "POST",
+    mode: "cors",
+    headers: {"Authorization": token}
+  })
+  if(response.ok){
+    yield call(cartCount)
+    yield call(cartDetails)
+  }
+}
+
 function *cartSaga(){
   yield takeEvery("cart/cartCount", cartCount)
   yield takeEvery("cart/cartDetails", cartDetails)
+  yield takeEvery("cart/updateCart", updateCart)
 }
 
 export default cartSaga

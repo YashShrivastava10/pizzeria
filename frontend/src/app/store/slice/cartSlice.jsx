@@ -1,6 +1,8 @@
 const { createSlice, createAction } = require("@reduxjs/toolkit");
 
 export const fetchCartDetailsRequest = createAction("cart/cartDetails")
+export const fetchCartCountRequest = createAction("cart/cartCount")
+export const fetchUpdateCartRequest = createAction("cart/updateCart")
 
 const cartSlice = createSlice({
   name: "cart",

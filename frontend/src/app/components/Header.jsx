@@ -6,10 +6,11 @@ import logo from "../../../public/PizzeriaLogo.png"
 import hamburger from "../../../public/hamburger.png"
 import { useEffect, useRef, useState } from "react"
 import { useDispatch, useSelector } from "react-redux";
-import { Auth, clearAuth } from "../helper/authHelper";
+import { clearAuth } from "../helper/authHelper";
 import { setUser } from "../store/slice/userSlice";
-import { useRouter, useCurrentRoute, usePathname } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { toast } from "react-toastify";
+import { fetchCartCountRequest, fetchCartDetailsRequest } from "../store/slice/cartSlice";
 
 const Header = () => {
 
@@ -24,7 +25,10 @@ const Header = () => {
 
   useEffect(() => {
     const details = JSON.parse(localStorage.getItem("user"))
-    if(details)  dispatch(setUser({user: details.user, loggedInStatus: true}))
+    if(details) {
+      dispatch(setUser({user: details.user, loggedInStatus: true}))
+      dispatch(fetchCartCountRequest())
+    }
   }, [])
 
   useEffect(() => {

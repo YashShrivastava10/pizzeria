@@ -4,8 +4,9 @@ import { useDispatch, useSelector } from "react-redux"
 import { fetchPizzaDetailsRequest } from "../store/slice/orderSlice"
 import Image from "next/image"
 import Loader from "../loading"
-import { increment, decrement, addToCart } from "../helper/cartHelper"
+import { addToCart } from "../helper/cartHelper"
 import { QuantitySelector } from "../components/QuantitySelector"
+import { fetchCartDetailsRequest } from "../store/slice/cartSlice"
 
 const PizzaCard = ({ index, data, quantity, dispatch}) => {
   const quant = quantity[data.id]
@@ -51,8 +52,8 @@ const OrderPizza = () => {
   }, [cartDetails])
 
   useEffect(() => {
-    if(pizzaDetails.length === 0)
-      dispatch(fetchPizzaDetailsRequest())
+    if(!pizzaDetails.length) dispatch(fetchPizzaDetailsRequest())
+    else dispatch(fetchCartDetailsRequest())
   }, [])
 
   return (
