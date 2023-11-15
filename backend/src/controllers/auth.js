@@ -40,7 +40,7 @@ export const signUp = async(req, res) => {
       const result = await collection.insertOne({ name, email, password: hash })
 
       if(result.acknowledged) {
-        const token = jwt.sign({ email: email }, process.env.JWT_SECRET_KEY)
+        const token = jwt.sign({ email: email }, process.env.JWT_SECRET_KEY, { expiresIn: '6h'})
         return res.status(200).send({ token, success: true, message: "Sign In Successfull" })
       }
       return res.status(200).send({ success: false, message: "Sign In Failed" })

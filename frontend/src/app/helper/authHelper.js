@@ -8,3 +8,8 @@ export const clearAuth = dispatch => {
 export const checkUser = () => {
   return localStorage.getItem("user") ? true : false
 }
+
+export const getToken = () => {
+  const { token } = JSON.parse(localStorage.getItem("user"))?.user || {};
+  return token
+}

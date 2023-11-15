@@ -3,6 +3,7 @@ import { setUser } from "../store/slice/userSlice";
 import { url } from "./rootSaga";
 import { takeEvery, call, put } from "redux-saga/effects"
 import { cartCount } from "./cartSaga";
+import { getErrorMessage } from "../helper/errorHelper";
 
 function* login(user){
   try{
@@ -26,26 +27,32 @@ function* login(user){
     }
   }
   catch(error){
-    console.log("Error while logging: ", error)
-    toast.error("Something went wrong !")
+    getErrorMessage(error)
   }
 }
 
 function* signUp(user){
-  const response = yield call(fetch, url + "/signUp", {
-    mode: "cors",
-    method: "POST",
-    headers: {'Content-Type': 'application/json'},
-    body: JSON.stringify(user.payload)
-  })
-  if(response.ok){
-    const data = yield response.json()
-    if(data.success){
-      const token = data["token"]
-      const user = user.payload
-      yield put(setUser({ user: {user, token}, loggedInStatus: true }))
-      toast.success("User created successfully!")
+  try{
+    const response = yield call(fetch, url + "/signUp", {
+      mode: "cors",
+      method: "POST",
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(user.payload)
+    })
+    if(response.ok){
+      const data = yield response.json()
+      if(data.success){
+        const token = data["token"]
+        const user = user.payload
+        yield put(setUser({ user: {user, token}, loggedInStatus: true }))
+        localStorage.setItem("user", JSON.stringify(details));
+        yield call(cartCount)
+        toast.success("User created successfully!")
+      }
     }
+  }
+  catch(error){
+    getErrorMessage(error)
   }
 }
 
