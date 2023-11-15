@@ -14,7 +14,7 @@ export const login = async(req, res) => {
     if (!data) return res.status(200).send({ success: false, message: "Email Id doest not exist", data: {} })
 
     if (await verifyPassword(pass, data.password)) {
-      const token = jwt.sign({ userId: data._id, email: data.email }, process.env.JWT_SECRET_KEY)
+      const token = jwt.sign({ userId: data._id, email: data.email }, process.env.JWT_SECRET_KEY, { expiresIn: '6h'})
       return res.status(200).send({ token, success: true, message: "Login Successfull", data: (({ password, ...data }) => data)(data) })
     }
 

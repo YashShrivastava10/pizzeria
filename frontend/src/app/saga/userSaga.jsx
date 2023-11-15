@@ -5,23 +5,29 @@ import { takeEvery, call, put } from "redux-saga/effects"
 import { cartCount } from "./cartSaga";
 
 function* login(user){
-  const response = yield call(fetch, url + "/login", {
-    mode: "cors",
-    method: "POST",
-    headers: {'Content-Type': 'application/json'},
-    body: JSON.stringify(user.payload)
-  })
-  if(response.ok){
-    const data = yield response.json()
-     if(data.success){
-      const token = data["token"]
-      const user = {...data["data"], token}
-      const details = { user: (({_id, ...user}) => user)(user), loggedInStatus: true }
-      localStorage.setItem("user", JSON.stringify(details));
-      yield put(setUser(details))
-      yield call(cartCount)
-      toast.success("Logged In!")
+  try{
+    const response = yield call(fetch, url + "/login", {
+      mode: "cors",
+      method: "POST",
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(user.payload)
+    })
+    if(response.ok){
+      const data = yield response.json()
+       if(data.success){
+        const token = data["token"]
+        const user = {...data["data"], token}
+        const details = { user: (({_id, ...user}) => user)(user), loggedInStatus: true }
+        localStorage.setItem("user", JSON.stringify(details));
+        yield put(setUser(details))
+        yield call(cartCount)
+        toast.success("Logged In!")
+      }
     }
+  }
+  catch(error){
+    console.log("Error while logging: ", error)
+    toast.error("Something went wrong !")
   }
 }
 

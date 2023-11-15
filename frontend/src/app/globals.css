@@ -55,6 +55,9 @@ body {
 .header-nav{
   @apply hidden md:block
 }
+.order-summary{
+  @apply w-full flex justify-between items-center
+}
 ::-webkit-scrollbar {
   width: 5px;
   height: 4px;
