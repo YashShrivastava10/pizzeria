@@ -8,13 +8,14 @@ import { useEffect, useRef, useState } from "react"
 import { useDispatch, useSelector } from "react-redux";
 import { clearAuth } from "../helper/authHelper";
 import { setUser } from "../store/slice/userSlice";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import { fetchCartCountRequest } from "../store/slice/cartSlice";
 
 const Header = () => {
 
   const dispatch = useDispatch()
+  const router = useRouter()
 
   const [clicked, setClicked] = useState(true)
   const [menu, setMenu] = useState(false)
@@ -31,6 +32,12 @@ const Header = () => {
     }
   }, [])
 
+  useEffect(() => {
+    if(pathname === "/cart") {
+      router.push("/")
+      toast.warn("Please login")
+    }
+  }, [])
   useEffect(() => {
     const delay = 500;
     const typing = document.getElementById("typing");
