@@ -43,11 +43,16 @@ function* signUp(user){
       const data = yield response.json()
       if(data.success){
         const token = data["token"]
-        const user = user.payload
-        yield put(setUser({ user: {user, token}, loggedInStatus: true }))
-        localStorage.setItem("user", JSON.stringify(details));
+        const newUser = user.payload
+        const {email, name} = newUser
+        const details = { user: {email, name, token}, loggedInStatus: true }
+        localStorage.setItem("user", JSON.stringify(details))
+        yield put(setUser(details))        
         yield call(cartCount)
         toast.success("User created successfully!")
+      }
+      else{
+        toast.error(data.message)
       }
     }
   }

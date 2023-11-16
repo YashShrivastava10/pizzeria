@@ -11,13 +11,13 @@ import CartLoader from "./loading"
 const CartCard = ({ index, data, dispatch }) => {
   const quantity = [1, 2, 3, 4, 5]
   const changeQuant = (id, qty, dispatch) => {
-    dispatch(fetchUpdateCartRequest({id, qty}))
+    dispatch(fetchUpdateCartRequest({ id, qty }))
   }
 
   return (
-    <div className="flex justify-between items-center w-full h-fit rounded-3xl shadow-lg p-2" key = {index}>
+    <div className="flex justify-between items-center w-full h-fit rounded-3xl shadow-lg p-2" key={index}>
       <div className="w-1/5">
-        <Image src={data.image} alt="" height={100} width={100} unoptimized style={{height: "100px", width: "100px"}}/>
+        <Image src={data.image} alt="" height={100} width={100} unoptimized style={{ height: "100px", width: "100px" }} />
       </div>
       <div className="w-1/5 text-center sm:text-md text-sm">
         <b>{data.name}</b>
@@ -27,7 +27,7 @@ const CartCard = ({ index, data, dispatch }) => {
       </div>
       <div className="w-1/5 flex justify-center">
         <div className="hidden w-3/4 sm:flex">
-          <QuantitySelector data = {data} dispatch={dispatch} quant={null}/>
+          <QuantitySelector data={data} dispatch={dispatch} quant={null} />
         </div>
         <div className="w-3/4 sm:hidden">
           <select value={data.qty} className="w-full border rounded-lg outline-none" onChange={(e) => changeQuant(data.id, e.target.value, dispatch)}>
@@ -61,11 +61,15 @@ const Cart = () => {
     setSubTotal(cartDetails.reduce((acc, data) => acc + (data.qty * data.price), 0))
   }, [cartDetails])
 
-  if(!isMounted) return null
+  if (!isMounted) return null
 
-  return(
+  return (
     <>
-      {loggedInStatus ? (cartDetails && !cartDetails.length) ? <CartLoader /> :
+      {!loggedInStatus && <Toast />}
+      {loggedInStatus && cartCount === 0 &&
+        <div className="text-4xl text-amber-600 font-bold flex justify-center items-center h-full w-full">Empty Cart</div>}
+      {loggedInStatus && cartCount && (cartDetails && !cartDetails.length) && <CartLoader />}
+      {loggedInStatus && cartCount && (cartDetails && cartDetails.length) &&
         <div className="cart-container">
           <div className="shoppingCart-container">
             <div className="shoppingCart-heading">
@@ -74,8 +78,8 @@ const Cart = () => {
             </div>
             <div className="shoppingCart-details-container">
               <div className="shoppingCart-details">
-                {cartDetails.map((data, index) => 
-                  <CartCard key = {index} index = {index} data = {data} dispatch = {dispatch}/>
+                {cartDetails.map((data, index) =>
+                  <CartCard key={index} index={index} data={data} dispatch={dispatch} />
                 )}
               </div>
             </div>
@@ -106,8 +110,7 @@ const Cart = () => {
               </div>
             </div>
           </div>
-        </div> 
-        : <Toast />
+        </div>
       }
     </>
   )
