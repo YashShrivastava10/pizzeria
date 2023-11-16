@@ -43,18 +43,25 @@ const CartCard = ({ index, data, dispatch }) => {
 }
 
 const Cart = () => {
+
   const dispatch = useDispatch()
   const { loggedInStatus } = useSelector(state => state.user)
   const { cartCount, cartDetails } = useSelector(state => state.cart)
   const [subTotal, setSubTotal] = useState(0)
+  const [isMounted, setIsMounted] = useState(false) // For Hydartion
 
+  // For the first time isMounted will be false, so in server and in client everything will be null
+  // After first render, useEffect will run and isMounted to true to render the HTML
   useEffect(() => {
+    setIsMounted(true)
     dispatch(fetchCartDetailsRequest())
   }, [])
 
   useEffect(() => {
     setSubTotal(cartDetails.reduce((acc, data) => acc + (data.qty * data.price), 0))
   }, [cartDetails])
+
+  if(!isMounted) return null
 
   return(
     <>
@@ -68,7 +75,7 @@ const Cart = () => {
             <div className="shoppingCart-details-container">
               <div className="shoppingCart-details">
                 {cartDetails.map((data, index) => 
-                  <CartCard key = {data.id} index = {index} data = {data} dispatch = {dispatch}/>
+                  <CartCard key = {index} index = {index} data = {data} dispatch = {dispatch}/>
                 )}
               </div>
             </div>
@@ -95,7 +102,7 @@ const Cart = () => {
                 </div>
               </div>
               <div className="orderSummary-button">
-                <button className="btn w-full">Checkout</button>
+                <button className="btn w-full tracking-widest md:tracking-normal">Checkout</button>
               </div>
             </div>
           </div>

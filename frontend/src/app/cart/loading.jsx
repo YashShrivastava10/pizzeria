@@ -13,7 +13,7 @@ const CartLoader = () => {
                 <div className="w-1/5 flex items-center">
                   <span className="h-[100px] w-[100px] skeleton"></span>
                 </div>
-                {Array.from({length: 3}).map((_, id) => 
+                {Array.from({length: 3}).map((__, id) => 
                   <div className="w-1/5 flex items-center" key={id}>
                     <span className="h-[20px] w-full skeleton"></span>
                   </div>

@@ -4,7 +4,6 @@ import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { fetchPizzaDetailsRequest } from "../store/slice/orderSlice"
 import Image from "next/image"
-
 import { addToCart } from "../helper/cartHelper"
 import { QuantitySelector } from "../components/QuantitySelector"
 import { fetchCartDetailsRequest } from "../store/slice/cartSlice"
@@ -60,7 +59,7 @@ const OrderPizza = () => {
 
   return (
     <>
-      {pizzaDetails && pizzaDetails.length === 0 ? <OrderLoader /> : 
+      {pizzaDetails && !pizzaDetails.length ? <OrderLoader /> : 
         <div className="w-full h-fit py-2 flex justify-center items-start overflow-hidden overflow-y-scroll">
           <div className="orderPizza-container">
             {pizzaDetails && pizzaDetails.map((data, index) => 
