@@ -10,7 +10,7 @@ import { clearAuth } from "../helper/authHelper";
 import { setUser } from "../store/slice/userSlice";
 import { usePathname } from "next/navigation";
 import { toast } from "react-toastify";
-import { fetchCartCountRequest, fetchCartDetailsRequest } from "../store/slice/cartSlice";
+import { fetchCartCountRequest } from "../store/slice/cartSlice";
 
 const Header = () => {
 
