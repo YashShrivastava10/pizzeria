@@ -38,6 +38,7 @@ const Header = () => {
       toast.warn("Please login")
     }
   }, [])
+  
   useEffect(() => {
     const delay = 500;
     const typing = document.getElementById("typing");

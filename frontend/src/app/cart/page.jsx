@@ -31,7 +31,7 @@ const CartCard = ({ index, data, dispatch }) => {
         </div>
         <div className="w-3/4 sm:hidden">
           <select value={data.qty} className="w-full border rounded-lg outline-none" onChange={(e) => changeQuant(data.id, e.target.value, dispatch)}>
-            {quantity.map(data => <option value={data} key={data}>{data}</option>)}
+            {quantity.map(item => <option value={item} key={item}>{item}</option>)}
           </select>
         </div>
       </div>

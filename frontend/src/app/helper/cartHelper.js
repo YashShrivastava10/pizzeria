@@ -2,8 +2,10 @@ import { toast } from "react-toastify"
 import { checkUser } from "./authHelper"
 import { addToCartRequest } from "../store/slice/orderSlice"
 
+const isAuth = checkUser()
+
 export const addToCart = (id, status, dispatch) => {
-  if(checkUser()){
+  if(isAuth){
     dispatch(addToCartRequest({id, status}))
   }
   else{
