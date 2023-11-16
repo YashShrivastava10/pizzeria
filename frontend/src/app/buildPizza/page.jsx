@@ -9,6 +9,7 @@ import Loader from "../loading"
 const BuildPizza = () => {
   const { ingredients, ingredientsTotalPrice } = useSelector(state => state.build)
   const dispatch = useDispatch()
+
   useEffect(() => {
     dispatch(fetchIngredientsRequest())
   }, [])
@@ -38,7 +39,7 @@ const BuildPizza = () => {
                   <td className="flex justify-center items-center gap-x-2 w-[130px] h-full border text-sm">
                     <b>{ing.tname}</b><b>&#8377;{ing.price}</b>
                   </td>
-                  <td className="flex justify-start items-center gap-x-2 w-[100px] h-full border text-sm pl-2" justify-center items-center>
+                  <td className="flex justify-start items-center gap-x-2 w-[100px] h-full border text-sm pl-2">
                     <input type="checkbox" value={ing.price} id={`ing-price-${ing.id}`} onChange={() => handleIngredientsPrice(ing.price, ing.id)} />
                     <label className="text-amber-500" htmlFor={`ing-price-${ing.id}`}>Add</label>
                   </td>
