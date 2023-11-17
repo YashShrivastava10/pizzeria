@@ -127,3 +127,39 @@ export const cartCount = async(req, res) => {
     res.status(500).send("Internal Server Error");
   }
 }
+
+export const clearCart = async(req, res) => {
+  try{
+    const { email } = req.user
+
+    let data = await connectDB()
+    const collection = data.collection("cart")
+
+    const result = await collection.deleteOne({ userId: email })
+    return response(result, res)
+  }
+  catch (error) {
+    console.error("Error clearing cart:", error);
+    res.status(500).send("Internal Server Error");
+  }
+}
+
+export const removeItem = async(req, res) => {
+  try{
+    const { email } = req.user
+    const { id } = req.query
+
+    let data = await connectDB()
+    const collection = data.collection("cart")
+
+    const userCart = await collection.findOne({ userId: email })
+    const updatedCart = userCart.details.filter(item => item.id !== id)
+    const result = await collection.updateOne({ userId: email }, { $set: { details: updatedCart } })
+
+    return response(result, res)
+  }
+  catch (error) {
+    console.error("Error clearing cart:", error)
+    res.status(500).send("Internal Server Error")
+  }
+}
