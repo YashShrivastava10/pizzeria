@@ -1,5 +1,5 @@
+"use client"
 import { setUser } from "@/store/slice/userSlice"
-
 
 export const clearAuth = dispatch => {
   localStorage.removeItem("user")
@@ -7,7 +7,12 @@ export const clearAuth = dispatch => {
 }
 
 export const checkUser = () => {
-  return localStorage.getItem("user") ? true : false
+  if (typeof window !== 'undefined'){
+    return localStorage.getItem("user") ? true : false
+  }
+  else{
+    return false
+  }
 }
 
 export const getToken = () => {

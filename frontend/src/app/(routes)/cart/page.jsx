@@ -62,6 +62,7 @@ const Cart = () => {
   }, [cartDetails])
 
   if (!isMounted) return null
+
   return (
     <>
       {!loggedInStatus && <Toast />}
