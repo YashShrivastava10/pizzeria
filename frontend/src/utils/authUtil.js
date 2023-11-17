@@ -1,4 +1,5 @@
-import { setUser } from "../store/slice/userSlice"
+import { setUser } from "@/store/slice/userSlice"
+
 
 export const clearAuth = dispatch => {
   localStorage.removeItem("user")

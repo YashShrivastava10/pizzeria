@@ -2,9 +2,9 @@
 
 import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { fetchIngredientsRequest, setIngrdientsTotalPrice } from "../store/slice/buildSlice"
+import { fetchIngredientsRequest, setIngrdientsTotalPrice } from "@/store/slice/buildSlice"
 import Image from "next/image"
-import Loader from "../loading"
+import Loader from "../../loading"
 
 const BuildPizza = () => {
   const { ingredients, ingredientsTotalPrice } = useSelector(state => state.build)

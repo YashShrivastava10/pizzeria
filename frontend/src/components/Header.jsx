@@ -2,15 +2,15 @@
 
 import Image from "next/image"
 import Link from "next/link"
-import logo from "../../../public/PizzeriaLogo.png"
-import hamburger from "../../../public/hamburger.png"
+import logo from "../../public/PizzeriaLogo.png"
+import hamburger from "../../public/hamburger.png"
 import { useEffect, useRef, useState } from "react"
 import { useDispatch, useSelector } from "react-redux";
-import { clearAuth } from "../helper/authHelper";
-import { setUser } from "../store/slice/userSlice";
+import { clearAuth } from "../utils/authUtil";
+import { setUser } from "@/store/slice/userSlice";
 import { usePathname, useRouter } from "next/navigation";
 import { toast } from "react-toastify";
-import { fetchCartCountRequest } from "../store/slice/cartSlice";
+import { fetchCartCountRequest } from "@/store/slice/cartSlice";
 
 const Header = () => {
 
@@ -104,8 +104,8 @@ const Header = () => {
         <Link href="/login" className="text-amber-600 text-2xl font-bold" onClick={() => setMenu(!menu)}>Log In</Link>
         <Link href="/cart" className="text-amber-600 text-2xl font-bold" onClick={() => setMenu(!menu)}>Cart</Link>
       </div>
-      <div className="w-3/4 flex flex-row justify-between text-gray-500 font-bold">
-        <div className="flex flex-row gap-x-5 items-center">
+      <div className="w-3/4 flex justify-between text-gray-500 font-bold">
+        <div className="flex gap-x-5 items-center">
           <div className="w-[10ch] flex items-center">
             <Link href="/" className="text-2xl text-amber-600 overflow-hidden whitespace-nowrap" id="typing" onClick={() => setClicked(!clicked)}>Pizzeria</Link>
           </div>

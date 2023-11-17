@@ -2,11 +2,11 @@
 
 import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { fetchPizzaDetailsRequest } from "../store/slice/orderSlice"
+import { fetchPizzaDetailsRequest } from "@/store/slice/orderSlice"
 import Image from "next/image"
-import { addToCart } from "../helper/cartHelper"
-import { QuantitySelector } from "../components/QuantitySelector"
-import { fetchCartDetailsRequest } from "../store/slice/cartSlice"
+import { addToCart } from "@/utils/cartUtil"
+import { QuantitySelector } from "@/utils/components/QuantitySelector"
+import { fetchCartDetailsRequest } from "@/store/slice/cartSlice"
 import OrderLoader from "./loading"
 
 const PizzaCard = ({ index, data, quantity, dispatch}) => {

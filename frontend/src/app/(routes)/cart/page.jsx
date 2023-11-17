@@ -1,11 +1,11 @@
 "use client"
 
 import { useDispatch, useSelector } from "react-redux"
-import { Toast } from "../components/Toast"
+import { Toast } from "@/utils/components/Toast"
 import { useEffect, useState } from "react"
-import { fetchCartDetailsRequest, fetchUpdateCartRequest } from "../store/slice/cartSlice"
+import { fetchCartDetailsRequest, fetchUpdateCartRequest } from "@/store/slice/cartSlice"
 import Image from "next/image"
-import { QuantitySelector } from "../components/QuantitySelector"
+import { QuantitySelector } from "@/utils/components/QuantitySelector"
 import CartLoader from "./loading"
 
 const CartCard = ({ index, data, dispatch }) => {

@@ -1,10 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit'
-import orderSlice from './slice/orderSlice';
 import createSagaMiddleware from 'redux-saga';
-import rootSaga from '../saga/rootSaga';
+import orderSlice from './slice/orderSlice';
 import buildSlice from './slice/buildSlice';
 import cartSlice from './slice/cartSlice';
 import userSlice from './slice/userSlice';
+import rootSaga from '@/saga/rootSaga';
 
 const sagaMiddleware = createSagaMiddleware()
 const Store = configureStore({

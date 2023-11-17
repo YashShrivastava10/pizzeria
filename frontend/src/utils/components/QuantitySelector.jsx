@@ -1,4 +1,4 @@
-import { increment, decrement } from "../helper/cartHelper"
+import { increment, decrement } from "../cartUtil"
 
 
 export const QuantitySelector = ({data, dispatch, quant}) => {

@@ -1,7 +1,7 @@
 import { takeEvery, call, put } from 'redux-saga/effects';
-import { setIngredients } from '../store/slice/buildSlice';
+import { setIngredients } from '@/store/slice/buildSlice';
 import { url } from "./rootSaga";
-import { getErrorMessage } from '../helper/errorHelper';
+import { getErrorMessage } from '../utils/errorUtil';
 
 function* getIngredients(){
   try{

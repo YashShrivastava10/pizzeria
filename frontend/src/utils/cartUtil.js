@@ -1,6 +1,6 @@
 import { toast } from "react-toastify"
-import { checkUser } from "./authHelper"
-import { addToCartRequest } from "../store/slice/orderSlice"
+import { checkUser } from "./authUtil"
+import { addToCartRequest } from "@/store/slice/orderSlice"
 
 const isAuth = checkUser()
 

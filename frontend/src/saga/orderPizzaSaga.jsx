@@ -1,9 +1,9 @@
 import { takeEvery, call, put } from 'redux-saga/effects';
-import { setPizzaDetails } from '../store/slice/orderSlice';
+import { setPizzaDetails } from '@/store/slice/orderSlice';
 import { url } from "./rootSaga";
 import { cartCount, cartDetails } from './cartSaga';
-import { getErrorMessage } from '../helper/errorHelper';
-import { getToken } from '../helper/authHelper';
+import { getErrorMessage } from '@/utils/errorUtil';
+import { getToken } from '@/utils/authUtil';
 
 function* getPizzaDetails(){
   try{

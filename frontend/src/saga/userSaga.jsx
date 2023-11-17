@@ -1,9 +1,9 @@
 import { toast } from "react-toastify";
-import { setUser } from "../store/slice/userSlice";
+import { setUser } from "@/store/slice/userSlice";
 import { url } from "./rootSaga";
 import { takeEvery, call, put } from "redux-saga/effects"
 import { cartCount } from "./cartSaga";
-import { getErrorMessage } from "../helper/errorHelper";
+import { getErrorMessage } from "@/utils/errorUtil";
 
 function* login(user){
   try{
