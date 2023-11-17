@@ -22,7 +22,7 @@ export function* cartCount(){
   }
   catch(error){
     yield put(setCartCount(0))
-    getErrorMessage(error)
+    getErrorMessage(error, null, "Somethig went wrong")
   }
 }
 
@@ -44,7 +44,7 @@ export function* cartDetails(){
   }
   catch(error){
     yield put(setCartDetails([]))
-    getErrorMessage(error)
+    getErrorMessage(error, null, "Something went wrong")
   }
 }
 
@@ -61,14 +61,13 @@ function* updateCart(payload){
     yield call(cartDetails)
   }
   catch(error){
-    getErrorMessage(error)
+    getErrorMessage(error, null, "Somethig went wrong")
   }
 }
 
 function* removeItem(payload){
   try{
     const token = getToken()
-    console.log(payload);
     const id = payload.payload
     yield call (fetch, url + `/removeItem?id=${id}`, {
       method: "GET",
@@ -79,7 +78,7 @@ function* removeItem(payload){
     yield call(cartDetails)
   }
   catch(error){
-    getErrorMessage(error)
+    getErrorMessage(error, null, "Somethig went wrong")
   }
 }
 
@@ -95,7 +94,7 @@ function* clearCart(){
     yield call(cartDetails)
   }
   catch(error){
-    getErrorMessage(error)
+    getErrorMessage(error, null, "Somethig went wrong")
   }
 }
 

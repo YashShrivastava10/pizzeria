@@ -3,6 +3,8 @@ import { setPizzaDetails } from '@/store/slice/orderSlice';
 import { url } from "./rootSaga";
 import { cartCount, cartDetails } from './cartSaga';
 import { getErrorMessage } from '@/utils/errorUtil';
+import { toast } from 'react-toastify';
+import { getSuccessMessage } from '@/utils/successUtil';
 import { getToken } from '@/utils/authUtil';
 
 function* getPizzaDetails(){
@@ -21,7 +23,7 @@ function* getPizzaDetails(){
   }
   catch(error){
     yield put(setPizzaDetails([]))
-    getErrorMessage(error)
+    getErrorMessage(error, null, "Something went wrong")
   }
 }
 
@@ -40,7 +42,7 @@ function* addToCart(payload){
     }
   }
   catch(error){
-    getErrorMessage(error)
+    getErrorMessage(error, null, "something went wrong")
   }
 }
 

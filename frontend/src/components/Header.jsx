@@ -25,6 +25,7 @@ const Header = () => {
   const { user, loggedInStatus } = useSelector(state => state.user)
 
   useEffect(() => {
+    console.log(localStorage);
     const details = JSON.parse(localStorage.getItem("user"))
     if(details) {
       dispatch(setUser({user: details.user, loggedInStatus: true}))
@@ -33,11 +34,15 @@ const Header = () => {
   }, [])
 
   useEffect(() => {
-    if(pathname === "/cart") {
-      router.push("/")
-      toast.warn("Please login")
+    if(!loggedInStatus){
+      if(pathname === "/cart") {
+        router.push("/")
+        toast.warn("Please login")
+      }
+      else toast.dismiss()
     }
-  }, [])
+    else toast.dismiss()
+  }, [pathname])
   
   useEffect(() => {
     const delay = 500;

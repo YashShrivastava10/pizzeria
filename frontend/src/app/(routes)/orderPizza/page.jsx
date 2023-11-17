@@ -45,6 +45,7 @@ const OrderPizza = () => {
   const [quantity, setQuantity] = useState({})
 
   useEffect(() => {
+    console.log(pizzaDetails.length);
     if(!pizzaDetails.length) dispatch(fetchPizzaDetailsRequest())
     else dispatch(fetchCartDetailsRequest())
   }, [])

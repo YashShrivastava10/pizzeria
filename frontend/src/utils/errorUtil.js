@@ -1,6 +1,8 @@
-import { toast } from "react-toastify"
+import { toast, Flip } from "react-toastify"
 
-export const getErrorMessage = (error) => {
-  console.log(error)
-  toast.error("Something went wrong")
+export const getErrorMessage = (error, toastId, errorMessage) => {
+  console.log(error);
+  if(!toastId) return toast.error(errorMessage)
+  toast.update(toastId, { render: errorMessage, type: "error", isLoading: false, closeOnClick, transition: Flip })
+  toast.dismiss(toastId)
 }
