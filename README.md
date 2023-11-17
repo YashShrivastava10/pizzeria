@@ -60,6 +60,8 @@ The backend follows a modular folder structure:
 
 5. **Order Summary:**
    - The cart page displays an order summary and a list of cart items.
+   - **Clear Cart Button:** Conveniently remove all items from your cart with a single click using the "Clear Cart" button.
+   - **Remove Item Button:** Tailor your order by removing specific items from your cart with the "X" button.
      
 6. **Animation:**
    - **Skeleton Loading for Order Page:** Provides a visual placeholder during data fetching on the order page.
@@ -83,10 +85,6 @@ I am working on bringing more features to enhance your Pizzeria experience. Here
    - **Forgot Password with Gmail:**
      - Initiate a secure password reset process by receiving an OTP via email.
      - Users can enter the OTP to verify their identity and proceed with resetting their password.
-
-5. **Cart Management:**
-   - **Clear Cart Button:** Conveniently remove all items from your cart with a single click using the "Clear Cart" button.
-   - **Remove Item Button:** Tailor your order by removing specific items from your cart with the "Remove Item" button.
   
 ## Contact
 
