@@ -3,15 +3,17 @@ import { checkUser } from "./authUtil"
 import { addToCartRequest } from "@/store/slice/orderSlice"
 import { clearCartRequest, removeItemtRequest } from "@/store/slice/cartSlice"
 
-const isAuth = checkUser()
+export const addToCartWithAuthCheck = (id, status, dispatch) => {
+  const isAuth = checkUser();
+
+  if (isAuth)
+    addToCart(id, status, dispatch);
+  else
+    toast.warn("Please Login to continue");
+};
 
 export const addToCart = (id, status, dispatch) => {
-  if(isAuth){
-    dispatch(addToCartRequest({id, status}))
-  }
-  else{
-    toast.warn("Please Login to continue")
-  }
+  dispatch(addToCartRequest({id, status}))
 }
 
 export const increment = (id, newQuantity, dispatch) => {
