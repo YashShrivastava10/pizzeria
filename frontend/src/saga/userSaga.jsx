@@ -24,6 +24,9 @@ function* login(user){
         yield call(cartCount)
         toast.success("Logged In!")
       }
+      else{
+        toast.error(data.message)
+      }
     }
   }
   catch(error){
