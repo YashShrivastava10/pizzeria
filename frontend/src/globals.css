@@ -12,8 +12,15 @@
   @apply bg-black text-amber-500 hover:bg-amber-500 hover:text-white px-4
 }
 .qty-btn{
-  @apply border px-3 bg-amber-600 text-white font-bold hover:bg-blue-800
+  @apply  px-3 bg-amber-600 text-white font-bold hover:bg-blue-800
 }
+.left-btn{
+  @apply rounded-l-full
+}
+.right-btn{
+  @apply rounded-r-full
+}
+
 .email:placeholder-shown ~ .label-email, .pass:placeholder-shown ~ .label-pass, .name:placeholder-shown ~ .label-name{
   transform: translateY(-35px);
 }
