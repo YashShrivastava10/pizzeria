@@ -7,6 +7,7 @@ import { fetchCartDetailsRequest, fetchUpdateCartRequest } from "@/store/slice/c
 import Image from "next/image"
 import { QuantitySelector } from "@/utils/components/QuantitySelector"
 import CartLoader from "./loading"
+import { removeItem, clearCart } from "@/utils/cartUtil"
 
 const CartCard = ({ index, data, dispatch }) => {
   const quantity = [1, 2, 3, 4, 5]
@@ -15,7 +16,10 @@ const CartCard = ({ index, data, dispatch }) => {
   }
 
   return (
-    <div className="flex justify-between items-center w-full h-fit rounded-3xl shadow-lg p-2" key={index}>
+    <div className="flex justify-between items-center w-full h-fit rounded-3xl shadow-lg p-2 relative" key={index}>
+      <div className="absolute bg-gray-200 hover:opacity-100 opacity-70 top-2 right-2 rounded-full h-6 w-6 flex justify-center items-center cursor-pointer" onClick={() => removeItem(data.id, dispatch)}>
+        <span className="-mt-1">x</span>
+      </div>
       <div className="w-1/5">
         <Image src={data.image} alt="" height={100} width={100} unoptimized style={{ height: "100px", width: "100px" }} />
       </div>
@@ -29,7 +33,7 @@ const CartCard = ({ index, data, dispatch }) => {
         <div className="hidden w-3/4 sm:flex">
           <QuantitySelector data={data} dispatch={dispatch} quant={null} />
         </div>
-        <div className="w-3/4 sm:hidden">
+        <div className="w-3/4 sm:hidden flex-col justify-around items-around">
           <select value={data.qty} className="w-full border rounded-lg outline-none" onChange={(e) => changeQuant(data.id, e.target.value, dispatch)}>
             {quantity.map(item => <option value={item} key={item}>{item}</option>)}
           </select>
@@ -73,7 +77,10 @@ const Cart = () => {
         <div className="cart-container">
           <div className="shoppingCart-container">
             <div className="shoppingCart-heading">
-              <span className="shoppingCart-text">Shopping Cart</span>
+              <div className="flex justify-between items-center">
+                <span className="shoppingCart-text">Shopping Cart</span>
+                <span className="underline text-xs cursor-pointer hover:text-amber-600" onClick={() => clearCart(dispatch)}>Clear Cart</span>
+              </div>
               <hr />
             </div>
             <div className="shoppingCart-details-container">

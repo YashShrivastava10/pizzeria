@@ -1,6 +1,7 @@
 import { toast } from "react-toastify"
 import { checkUser } from "./authUtil"
 import { addToCartRequest } from "@/store/slice/orderSlice"
+import { clearCartRequest, removeItemtRequest } from "@/store/slice/cartSlice"
 
 const isAuth = checkUser()
 
@@ -21,4 +22,12 @@ export const increment = (id, newQuantity, dispatch) => {
 export const decrement = (id, newQuantity, dispatch) => {
   if(newQuantity < 0) return
   addToCart(id, "dec", dispatch)
+}
+
+export const removeItem = (id, dispatch) => {
+  dispatch(removeItemtRequest(id))
+}
+
+export const clearCart = dispatch => {
+  dispatch(clearCartRequest())
 }

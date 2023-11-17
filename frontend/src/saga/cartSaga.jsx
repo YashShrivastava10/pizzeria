@@ -65,10 +65,46 @@ function* updateCart(payload){
   }
 }
 
+function* removeItem(payload){
+  try{
+    const token = getToken()
+    console.log(payload);
+    const id = payload.payload
+    yield call (fetch, url + `/removeItem?id=${id}`, {
+      method: "GET",
+      mode: "cors",
+      headers: {"Authorization": token}
+    })
+    yield call(cartCount)
+    yield call(cartDetails)
+  }
+  catch(error){
+    getErrorMessage(error)
+  }
+}
+
+function* clearCart(){
+  try{
+    const token = getToken()
+    yield call (fetch, url + "/clearCart", {
+      method: "GET",
+      mode: "cors",
+      headers: {"Authorization": token}
+    })
+    yield call(cartCount)
+    yield call(cartDetails)
+  }
+  catch(error){
+    getErrorMessage(error)
+  }
+}
+
 function *cartSaga(){
   yield takeEvery("cart/cartCount", cartCount)
   yield takeEvery("cart/cartDetails", cartDetails)
   yield takeEvery("cart/updateCart", updateCart)
+  yield takeEvery("cart/removeItem", removeItem)
+  yield takeEvery("cart/clearCart", clearCart)
 }
 
 export default cartSaga
