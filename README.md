@@ -6,7 +6,6 @@ Welcome to Pizzeria, a full-stack pizza ordering application. This README provid
 
 - [Demo](#demo)
 - [Tech Stack](#tech-stack)
-- [Folder Structure](#folder-structure)
 - [Features](#features)
 - [Upcoming Features](#upcoming-features)
 - [Contact](#contact)
@@ -31,15 +30,6 @@ Welcome to Pizzeria, a full-stack pizza ordering application. This README provid
 
 - **Hosting:**
   - Hosted on Vercel
-
-## Folder Structure
-
-The backend follows a modular folder structure:
-
-- **controllers:** Logic for handling requests
-- **middleware:** Custom middleware functions
-- **utils:** Utility functions
-- **routes:** API routes
 
 ## Features
 
