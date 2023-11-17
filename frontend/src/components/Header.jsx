@@ -25,7 +25,6 @@ const Header = () => {
   const { user, loggedInStatus } = useSelector(state => state.user)
 
   useEffect(() => {
-    console.log(localStorage);
     const details = JSON.parse(localStorage.getItem("user"))
     if(details) {
       dispatch(setUser({user: details.user, loggedInStatus: true}))
