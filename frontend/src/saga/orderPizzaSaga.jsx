@@ -29,7 +29,7 @@ function* addToCart(payload){
   try{
     const token = getToken()
     const { id, status } = payload.payload
-    const response = yield call (fetch, url + `/addToCart?id=${id}&status=${status}`, {
+    const response = yield call (fetch, url + `/pizza/addToCart?id=${id}&status=${status}`, {
       method: "POST",
       mode: "cors",
       headers: {"Authorization": token}

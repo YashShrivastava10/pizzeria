@@ -9,7 +9,7 @@ import { getSuccessMessage } from "@/utils/successUtil";
 function* login(user) {
   const toastId = toast.loading("Logging In...")
   try {
-    const response = yield call(fetch, url + "/login", {
+    const response = yield call(fetch, url + "/auth/login", {
       mode: "cors",
       method: "POST",
       headers: { 'Content-Type': 'application/json' },
@@ -39,7 +39,7 @@ function* login(user) {
 function* signUp(user) {
   const toastId = toast.loading("Creating account...")
   try {
-    const response = yield call(fetch, url + "/signUp", {
+    const response = yield call(fetch, url + "/auth/signUp", {
       mode: "cors",
       method: "POST",
       headers: { 'Content-Type': 'application/json' },

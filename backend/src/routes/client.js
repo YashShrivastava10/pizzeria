@@ -5,7 +5,7 @@ import { authMiddleware } from "../middleware/authMiddleware.js"
 
 const router = express.Router()
 
-router.get("/pizza", getPizzaDetails)
+router.get("/", getPizzaDetails)
 router.get("/ingredients", getIngredientDetails)
 router.post("/addToCart", authMiddleware, addToCart)
 router.get("/cartCount", authMiddleware, cartCount)

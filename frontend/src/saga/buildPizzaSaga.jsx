@@ -8,7 +8,7 @@ import { getSuccessMessage } from '@/utils/successUtil';
 function* getIngredients(){
   const toastId = toast.loading("Fetching Topping details...")
   try{
-    const response = yield call (fetch, url + "/ingredients", {
+    const response = yield call (fetch, url + "/pizza/ingredients", {
       method: "GET",
       mode: "cors"
     })

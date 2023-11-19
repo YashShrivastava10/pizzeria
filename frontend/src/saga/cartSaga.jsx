@@ -7,7 +7,7 @@ import { getErrorMessage } from "@/utils/errorUtil";
 export function* cartCount(){
   try{
     const token = getToken()
-    const response = yield call (fetch, url + "/cartCount", {
+    const response = yield call (fetch, url + "/pizza/cartCount", {
       method: "GET",
       mode: "cors",
       headers: {"Authorization": token}
@@ -29,7 +29,7 @@ export function* cartCount(){
 export function* cartDetails(){
   try{
     const token = getToken()
-    const response = yield call (fetch, url + "/cart", {
+    const response = yield call (fetch, url + "/pizza/cart", {
       method: "GET",
       mode: "cors",
       headers: {"Authorization": token}
@@ -52,7 +52,7 @@ function* updateCart(payload){
   try{
     const token = getToken()
     const { id, qty } = payload.payload
-    yield call (fetch, url + `/updateCart?id=${id}&qty=${qty}`, {
+    yield call (fetch, url + `/pizza/updateCart?id=${id}&qty=${qty}`, {
       method: "POST",
       mode: "cors",
       headers: {"Authorization": token}
@@ -69,7 +69,7 @@ function* removeItem(payload){
   try{
     const token = getToken()
     const id = payload.payload
-    yield call (fetch, url + `/removeItem?id=${id}`, {
+    yield call (fetch, url + `/pizza/removeItem?id=${id}`, {
       method: "GET",
       mode: "cors",
       headers: {"Authorization": token}
@@ -85,7 +85,7 @@ function* removeItem(payload){
 function* clearCart(){
   try{
     const token = getToken()
-    yield call (fetch, url + "/clearCart", {
+    yield call (fetch, url + "/pizza/clearCart", {
       method: "GET",
       mode: "cors",
       headers: {"Authorization": token}

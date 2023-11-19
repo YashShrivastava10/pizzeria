@@ -8,7 +8,7 @@ server.use(cors())
 server.use(express.json())
 const port = 4000
 
-server.use(authRoutes)
-server.use(clientRoutes)
+server.use("/api/auth", authRoutes)
+server.use("/api/pizza", clientRoutes)
 
 server.listen(port, () => console.log(`Server running at port ${port}`))
