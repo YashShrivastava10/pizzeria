@@ -67,7 +67,7 @@ const AuthLayout = ({ status }) => {
               passwordHidden = {passwordHidden}
               setPasswordHidden = {setPasswordHidden}
             />
-            <button className="text-right text-sm cursor-pointer" onClick={handleClick}>Forget Password?</button>
+            <Link href="/forgetPassword" className="text-right text-sm cursor-pointer">Forget Password?</Link>
           </div>
         </div>
         {/* <div className="flex gap-1 justify-center text-blue-800 mt-5">
