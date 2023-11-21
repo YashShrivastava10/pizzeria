@@ -57,21 +57,19 @@ Welcome to Pizzeria, a full-stack pizza ordering application. This README provid
    - **Skeleton Loading for Order Page:** Provides a visual placeholder during data fetching on the order page.
    - **Skeleton Loading for Cart Page:** Custom skeleton loading animation for a better loading experience on the cart page.
    - **Normal Spinner:** A spinner is displayed during general page loading.
+   - Enjoy a smoother user experience with loading animations during various user actions.
 
 ## Upcoming Features
 
 I am working on bringing more features to enhance your Pizzeria experience. Here are some of the upcoming features:
 
-1. **Loading Animation:**
-   - Enjoy a smoother user experience with loading animations during various user actions.
-
-2. **SignIn with Google:**
+1. **SignIn with Google:**
    - Simplify the login process by providing users with the option to sign in using their Google accounts.
 
-3. **Custom Pizza Builder:**
+2. **Custom Pizza Builder:**
    - Get creative with our upcoming custom pizza builder! Choose from a variety of toppings, crusts, and sauces to build your perfect pizza.
      
-4. **Account Recovery with OTP:**
+3. **Account Recovery with OTP:**
    - **Forgot Password with Gmail:**
      - Initiate a secure password reset process by receiving an OTP via email.
      - Users can enter the OTP to verify their identity and proceed with resetting their password.
