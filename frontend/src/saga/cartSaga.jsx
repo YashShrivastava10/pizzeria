@@ -3,6 +3,7 @@ import { url } from "./rootSaga"
 import { setCartCount, setCartDetails } from "@/store/slice/cartSlice"
 import { getToken } from "@/utils/authUtil";
 import { getErrorMessage } from "@/utils/errorUtil";
+import { setLoading } from "@/store/slice/loadingSlice";
 
 export function* cartCount(){
   try{
@@ -50,6 +51,7 @@ export function* cartDetails(){
 
 function* updateCart(payload){
   try{
+    yield put(setLoading(true))
     const token = getToken()
     const { id, qty } = payload.payload
     yield call (fetch, url + `/pizza/updateCart?id=${id}&qty=${qty}`, {
@@ -59,14 +61,17 @@ function* updateCart(payload){
     })
     yield call(cartCount)
     yield call(cartDetails)
+    yield put(setLoading(false))
   }
   catch(error){
     getErrorMessage(error, null, "Somethig went wrong")
+    yield put(setLoading(false))
   }
 }
 
 function* removeItem(payload){
   try{
+    yield put(setLoading(true))
     const token = getToken()
     const id = payload.payload
     yield call (fetch, url + `/pizza/removeItem?id=${id}`, {
@@ -76,14 +81,17 @@ function* removeItem(payload){
     })
     yield call(cartCount)
     yield call(cartDetails)
+    yield put(setLoading(false))
   }
   catch(error){
     getErrorMessage(error, null, "Somethig went wrong")
+    yield put(setLoading(false))
   }
 }
 
 function* clearCart(){
   try{
+    yield put(setLoading(true))
     const token = getToken()
     yield call (fetch, url + "/pizza/clearCart", {
       method: "GET",
@@ -92,9 +100,11 @@ function* clearCart(){
     })
     yield call(cartCount)
     yield call(cartDetails)
+    yield put(setLoading(false))
   }
   catch(error){
     getErrorMessage(error, null, "Somethig went wrong")
+    yield put(setLoading(false))
   }
 }
 

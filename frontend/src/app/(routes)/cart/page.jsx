@@ -51,6 +51,7 @@ const Cart = () => {
   const dispatch = useDispatch()
   const { loggedInStatus } = useSelector(state => state.user)
   const { cartCount, cartDetails } = useSelector(state => state.cart)
+  const { loading } = useSelector(state => state.loading)
   const [subTotal, setSubTotal] = useState(0)
   const [isMounted, setIsMounted] = useState(false) // For Hydartion
 
@@ -74,7 +75,8 @@ const Cart = () => {
         <div className="text-4xl text-amber-600 font-bold flex justify-center items-center h-full w-full">Empty Cart</div>}
       {loggedInStatus && cartCount && (cartDetails && !cartDetails.length) && <CartLoader />}
       {loggedInStatus && cartCount && (cartDetails && cartDetails.length) &&
-        <div className="cart-container">
+        <div className={`cart-container ${loading && 'opacity-50'}`}>
+          {loading && <div className="page-loading z-50" />}
           <div className="shoppingCart-container">
             <div className="shoppingCart-heading">
               <div className="flex justify-between items-center">

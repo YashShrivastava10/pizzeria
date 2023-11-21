@@ -5,6 +5,7 @@ import buildSlice from './slice/buildSlice';
 import cartSlice from './slice/cartSlice';
 import userSlice from './slice/userSlice';
 import rootSaga from '@/saga/rootSaga';
+import loadingSlice from './slice/loadingSlice';
 
 const sagaMiddleware = createSagaMiddleware()
 const Store = configureStore({
@@ -13,6 +14,7 @@ const Store = configureStore({
     build: buildSlice,
     cart: cartSlice,
     user: userSlice,
+    loading: loadingSlice,
   },
   middleware: [sagaMiddleware]
 })

@@ -33,12 +33,9 @@ const Header = () => {
   }, [])
 
   useEffect(() => {
-    if(!loggedInStatus){
-      if(pathname === "/cart") {
-        router.push("/")
-        toast.warn("Please login")
-      }
-      else toast.dismiss()
+    if(!loggedInStatus && pathname === "/cart"){
+      router.push("/")
+      toast.warn("Please login")
     }
     else toast.dismiss()
   }, [pathname])
@@ -105,7 +102,7 @@ const Header = () => {
         <div className="absolute text-2xl text-amber-600 font-bold top-3 right-4" onClick={() => setMenu(!menu)}>X</div>
         <Link href="/orderPizza" className="text-amber-600 text-2xl font-bold" onClick={() => setMenu(!menu)}>Order Pizza</Link>
         <Link href="/buildPizza" className="text-amber-600 text-2xl font-bold" onClick={() => setMenu(!menu)}>Build Pizza</Link>
-        <Link href="/login" className="text-amber-600 text-2xl font-bold" onClick={() => setMenu(!menu)}>Log In</Link>
+        <Link href="/login" className="text-amber-600 text-2xl font-bold" onClick={() => setMenu(!menu)}>Log {!loggedInStatus ? "In" : "Out"}</Link>
         <Link href="/cart" className="text-amber-600 text-2xl font-bold" onClick={() => setMenu(!menu)}>Cart</Link>
       </div>
       <div className="w-3/4 flex justify-between text-gray-500 font-bold">

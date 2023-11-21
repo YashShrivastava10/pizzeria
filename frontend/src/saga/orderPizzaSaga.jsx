@@ -4,6 +4,7 @@ import { url } from "./rootSaga";
 import { cartCount, cartDetails } from './cartSaga';
 import { getErrorMessage } from '@/utils/errorUtil';
 import { getToken } from '@/utils/authUtil';
+import { setLoading } from '@/store/slice/loadingSlice';
 
 function* getPizzaDetails(){
   try{
@@ -27,6 +28,7 @@ function* getPizzaDetails(){
 
 function* addToCart(payload){
   try{
+    yield put(setLoading(true))
     const token = getToken()
     const { id, status } = payload.payload
     const response = yield call (fetch, url + `/pizza/addToCart?id=${id}&status=${status}`, {
@@ -37,10 +39,12 @@ function* addToCart(payload){
     if(response.ok){
       yield call(cartCount)
       yield call(cartDetails)
+      yield put(setLoading(false))
     }
   }
   catch(error){
     getErrorMessage(error, null, "something went wrong")
+    yield put(setLoading(false))
   }
 }
 

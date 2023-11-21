@@ -11,6 +11,7 @@ import OrderLoader from "./loading"
 
 const PizzaCard = ({ index, data, quantity, dispatch}) => {
   const quant = quantity[data.id]
+
   return (
     <div key={index} className="orderPizza-details-container">
       <div className="orderPizza-details">
@@ -41,6 +42,7 @@ const OrderPizza = () => {
   const dispatch = useDispatch()
   const { pizzaDetails } = useSelector(state => state.order)
   const { cartDetails } = useSelector(state => state.cart)
+  const { loading } = useSelector(state => state.loading)
 
   const [quantity, setQuantity] = useState({})
 
@@ -60,8 +62,9 @@ const OrderPizza = () => {
   return (
     <>
       {pizzaDetails && !pizzaDetails.length ? <OrderLoader /> : 
-        <div className="w-full h-fit py-2 flex justify-center items-start overflow-hidden overflow-y-scroll">
-          <div className="orderPizza-container">
+        <div className={`w-full h-fit py-2 flex justify-center items-start overflow-hidden overflow-y-scroll ${loading && 'opacity-50'}`}>
+          <div className="orderPizza-container relative">
+            {loading && <div className="page-loading" />}
             {pizzaDetails && pizzaDetails.map((data, index) => 
               <PizzaCard key={data.id} index = {index} data = {data} quantity = {quantity} dispatch = {dispatch}/>
             )}
