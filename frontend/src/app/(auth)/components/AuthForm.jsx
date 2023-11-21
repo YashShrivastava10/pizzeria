@@ -2,8 +2,11 @@ import hide from "../../../../public/hide.png"
 import show from "../../../../public/show.png"
 import login from "../../../../public/login.png"
 import Image from "next/image"
+import { useSelector } from "react-redux"
 
 export const AuthForm = ({ status, user, handleUser, handleSubmit, passwordHidden, setPasswordHidden }) => {
+  const { loading } = useSelector(state => state.loading)
+
   return (
     <form className="form-div" onSubmit={handleSubmit}>
       {status !== "signin" &&
@@ -21,7 +24,7 @@ export const AuthForm = ({ status, user, handleUser, handleSubmit, passwordHidde
         <Image src={passwordHidden ? show : hide} id="pass-img" alt="Eye" height={20} width={20} className="absolute top-0 right-0" onClick={() => setPasswordHidden(!passwordHidden)} />
       </div>
       <button className="absolute bottom-4 sm:bottom-2 right-1 text-white bg-amber-500 shadow-lg rounded-full h-8 w-8 hover:bg-sky-800 hover:rounded transition-rounded duration-200 ease-in flex justify-center items-center" type="submit">
-        <Image src={login} alt="X" height={20} width={20} />
+        {loading ? <div className="h-4 w-4 border-2 border-white rounded-full border-t-transparent animate-spin"></div> : <Image src={login} alt="X" height={20} width={20} />}
       </button>
     </form>
   )

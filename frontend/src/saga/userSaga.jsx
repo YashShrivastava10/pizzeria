@@ -5,10 +5,12 @@ import { takeEvery, call, put } from "redux-saga/effects"
 import { cartCount } from "./cartSaga";
 import { getErrorMessage } from "@/utils/errorUtil";
 import { getSuccessMessage } from "@/utils/successUtil";
+import { setLoading } from "@/store/slice/loadingSlice";
 
 function* login(user) {
   const toastId = toast.loading("Logging In...")
   try {
+    yield put(setLoading(true))
     const response = yield call(fetch, url + "/auth/login", {
       mode: "cors",
       method: "POST",
@@ -24,21 +26,25 @@ function* login(user) {
         localStorage.setItem("user", JSON.stringify(details));
         yield put(setUser(details))
         yield call(cartCount)
+        yield put(setLoading(false))
         getSuccessMessage(toastId, "Logged In")
       }
       else {
         getErrorMessage(null, toastId, data.message)
+        yield put(setLoading(false))
       }
     }
   }
   catch (error) {
     getErrorMessage(error, toastId, "Something Went Wrong !!")
+    yield put(setLoading(false))
   }
 }
 
 function* signUp(user) {
   const toastId = toast.loading("Creating account...")
   try {
+    yield put(setLoading(true))
     const response = yield call(fetch, url + "/auth/signUp", {
       mode: "cors",
       method: "POST",
@@ -55,15 +61,18 @@ function* signUp(user) {
         localStorage.setItem("user", JSON.stringify(details))
         yield put(setUser(details))
         yield call(cartCount)
+        yield put(setLoading(false))
         getSuccessMessage(toastId, "Account Created")
       }
       else {
         getErrorMessage(null, toastId, data.message)
+        yield put(setLoading(false))
       }
     }
   }
   catch (error) {
     getErrorMessage(error, toastId, "Something Went Wrong !!")
+    yield put(setLoading(false))
   }
 }
 
