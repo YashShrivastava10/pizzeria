@@ -98,7 +98,7 @@ const Header = () => {
       <div className="md:hidden absolute right-4" onClick={() => setMenu(!menu)}>
         <Image src={hamburger} alt="Icon" height={20} width={20} />
       </div>
-      <div className="flex translate-x-full absolute inset-0 bg-black h-screen w-screen flex-col justify-center items-center gap-10" id="hamburger">
+      <div className="flex translate-x-full absolute inset-0 bg-black h-screen w-screen flex-col justify-center items-center gap-10 z-100" id="hamburger">
         <div className="absolute text-2xl text-amber-600 font-bold top-3 right-4" onClick={() => setMenu(!menu)}>X</div>
         <Link href="/orderPizza" className="text-amber-600 text-2xl font-bold" onClick={() => setMenu(!menu)}>Order Pizza</Link>
         <Link href="/buildPizza" className="text-amber-600 text-2xl font-bold" onClick={() => setMenu(!menu)}>Build Pizza</Link>
