@@ -1,0 +1,15 @@
+import { createSlice } from "@reduxjs/toolkit"
+
+const forgetPasswordSlice = createSlice({
+  name: "forgetPassword",
+  initialState: { step: "email", email: "", eOTP: 0},
+  reducers: {
+    setStep: (state, action) => ({...state, step: action.payload}),
+    setEmail: (state, action) => ({...state, email: action.payload}),
+    setEOTP: (state, action) => ({...state, eOTP: action.payload}), 
+  }
+})
+
+export default forgetPasswordSlice.reducer
+
+export const { setStep, setEmail, setEOTP } = forgetPasswordSlice.actions

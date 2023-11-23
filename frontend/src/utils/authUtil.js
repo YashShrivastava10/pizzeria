@@ -19,3 +19,10 @@ export const getToken = () => {
   const { token } = JSON.parse(localStorage.getItem("user"))?.user || {};
   return token
 }
+
+export const generateOTP = (otp) => {
+  const newOtp = Math.floor(1000 + Math.random() * 9000)
+  if(otp !== newOtp)
+    return newOtp
+  generateOTP(otp)
+}

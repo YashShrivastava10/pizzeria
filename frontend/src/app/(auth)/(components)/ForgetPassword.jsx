@@ -4,11 +4,11 @@ import { useState } from "react"
 import EmailOTP from "./EmailOTP"
 import OTPAuth from "./OTPAuth"
 import ResetPassword from "./ResetPassword"
+import { useSelector } from "react-redux"
 
 const ForgetForm = () => {
 
-  const [step, setStep] = useState("email")
-  const [email, setEmail] = useState("")
+  const { step } = useSelector(state => state.forgetPassword)
 
   const handleStep = (step) => {
     setStep(step)
@@ -16,9 +16,9 @@ const ForgetForm = () => {
 
   return(
     <>
-      {step === "email" && <EmailOTP handleStep={handleStep} email={email} setEmail={setEmail}/>}
-      {step === "otp" && <OTPAuth handleStep={handleStep} email={email} setEmail={setEmail}/>}
-      {step === "reset" && <ResetPassword email={email}/>}
+      {step === "email" && <EmailOTP />}
+      {step === "otp" && <OTPAuth />}
+      {step === "reset" && <ResetPassword />}
     </>
   )
 }
