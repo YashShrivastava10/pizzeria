@@ -55,13 +55,13 @@ export const AuthForm = ({ status }) => {
           <Image src={passwordHidden ? show : hide} id="pass-img" alt="Eye" height={20} width={20} className="absolute top-2 right-2 cursor-pointer" onClick={() => setPasswordHidden(!passwordHidden)} />
         </div>
       </div>
-      {/* <div className={`w-full flex justify-between items-center text-gray-500 text-sm ${statusEntries[status].hidden}`}>
+      <div className={`w-full flex justify-between items-center text-gray-500 text-sm ${statusEntries[status].hidden}`}>
         <div className="flex gap-x-2">
           <input type="checkbox" id="checkbox" />
           <label htmlFor="checkbox">Remember Me</label>
         </div>
         <Link href="/forgetPassword">Forget Password?</Link>
-      </div> */}
+      </div>
       <div className="w-full">
         <button className="w-full rounded-3xl p-1 bg-blue-800 text-white font-bold hover:bg-amber-600 hover:rounded transition-all duration-300 ease-in">{statusEntries[status].header}</button>
       </div>

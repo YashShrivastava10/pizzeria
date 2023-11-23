@@ -1,3 +1,4 @@
+import { response } from "express"
 import connectDB from "../utils/db.js"
 import { encrypt, verifyPassword } from "../utils/password.js"
 import jwt from "jsonwebtoken"
@@ -49,6 +50,25 @@ export const signUp = async(req, res) => {
   }
   catch(error){
     console.error("Error sigin:", error);
+    res.status(500).send({ message: error });
+  }
+}
+
+export const resetPassword = async(req, res) => {
+  try{
+    let data = await connectDB()
+    const collection = data.collection("users")
+
+    const { email, pass } = req.body
+
+    const hash = await encrypt(pass)
+
+    const result = await collection.updateOne({email}, {$set: {pass: hash}})
+    if(result.matchedCount === 1)
+      res.status(200).send({ success: true, message: "Password has been changed"})
+  }
+  catch(error){
+    console.error("Error resetting password:", error);
     res.status(500).send({ message: error });
   }
 }
