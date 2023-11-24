@@ -1,4 +1,6 @@
-import { createSlice } from "@reduxjs/toolkit"
+import { createAction, createSlice } from "@reduxjs/toolkit"
+
+export const validateResetPassword = createAction("forgetPassword/validateResetPassword")
 
 const forgetPasswordSlice = createSlice({
   name: "forgetPassword",

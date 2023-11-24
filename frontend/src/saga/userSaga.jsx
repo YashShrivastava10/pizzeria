@@ -76,9 +76,36 @@ function* signUp(user) {
   }
 }
 
+function* resetPassword(payload) {
+  const toastId = toast.loading("Changing Password...")
+  try {
+    yield put(setLoading(true))
+    const response = yield call(fetch, url + "/auth/resetPassword", {
+      mode: "cors",
+      method: "POST",
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload.payload)
+    })
+    if (response.ok) {
+      const data = yield response.json()
+      if (data.success) {
+        getSuccessMessage(toastId, "Password changed successfully")
+        window.location.href = "/login"
+      }
+      else {
+      }
+    }
+  }
+  catch (error) {
+    getErrorMessage(error, toastId, "Something Went Wrong !!")
+    yield put(setLoading(false))
+  }
+}
+
 function* userSaga() {
   yield takeEvery("user/loginRequest", login)
   yield takeEvery("user/signUpRequest", signUp)
+  yield takeEvery("forgetPassword/validateResetPassword", resetPassword)
 }
 
 export default userSaga

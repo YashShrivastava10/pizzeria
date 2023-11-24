@@ -4,7 +4,7 @@ import { useState } from "react"
 import EmailOTP from "./EmailOTP"
 import OTPAuth from "./OTPAuth"
 import ResetPassword from "./ResetPassword"
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 
 const ForgetForm = () => {
 

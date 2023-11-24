@@ -1,10 +1,15 @@
+import { validateResetPassword } from "@/store/slice/forgetPasswordSlice"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { useState } from "react"
+import { useDispatch, useSelector } from "react-redux"
 import { toast } from "react-toastify"
 
 const ResetPassword = () => {
+  
+  const dispatch = useDispatch()
   const router = useRouter()
+  const { email } = useSelector(state => state.forgetPassword)
   const [password, setPassword] = useState({pass: "", rePass: ""})
 
   const handlePassword = (name, value) => {
@@ -15,8 +20,7 @@ const ResetPassword = () => {
   const handleSubmit = (e) => {
     e.preventDefault()
     if(password.pass === password.rePass){
-      toast.success("Equal Password")
-      router.push("/login")
+      dispatch(validateResetPassword({ email: email, pass: password.pass }))
     }
     else toast.error("Password does not match")
   }
