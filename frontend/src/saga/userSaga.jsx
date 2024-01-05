@@ -42,7 +42,6 @@ function* login(user) {
 }
 
 function* googleLogin(user) {
-  console.log(user);
   const toastId = toast.loading("Logging In...")
   try {
     yield put(setLoading(true))

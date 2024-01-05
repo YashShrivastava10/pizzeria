@@ -58,11 +58,7 @@ export const AuthForm = ({ status }) => {
       setUser(prevUser => ({ ...prevUser, name, email, pass: "" }));
       const updatedUser = { name, email, pass: "" }
       if (status === "signup") dispatch(signUpRequest(updatedUser))
-      else {
-        dispatch(googleLoginRequest({email}))
-        console.log("HJ");
-      }
-    console.log(data);
+      else dispatch(googleLoginRequest({email}))
     },
     flow: "implicit"
   });
