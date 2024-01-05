@@ -7,8 +7,11 @@ import { useRouter } from "next/navigation"
 import show from "../../../../public/show.png"
 import hide from "../../../../public/hide.png"
 import Image from "next/image"
-import { loginRequest, signUpRequest } from "@/store/slice/userSlice"
+import { googleLoginRequest, loginRequest, signUpRequest } from "@/store/slice/userSlice"
 import { statusEntries } from "./AuthLayout"
+
+import { useGoogleLogin } from '@react-oauth/google';
+import { jwtDecode } from "jwt-decode"
 
 export const AuthForm = ({ status }) => {
   const dispatch = useDispatch()
@@ -37,11 +40,32 @@ export const AuthForm = ({ status }) => {
       dispatch: () => dispatch(signUpRequest(user))
     }
   }
-  
+
   const handleSubmit = (e) => {
     e.preventDefault()
     method[status].dispatch()
   }
+
+  const auth = useGoogleLogin({
+    onSuccess: async tokenResponse => {
+      const response = await fetch('https://www.googleapis.com/oauth2/v3/userinfo', {
+        method: "GET",
+        mode: "cors",
+        headers: { Authorization: `Bearer ${tokenResponse.access_token}` }
+      })
+      const data = await response.json()
+      const { name, email } = data
+      setUser(prevUser => ({ ...prevUser, name, email, pass: "" }));
+      const updatedUser = { name, email, pass: "" }
+      if (status === "signup") dispatch(signUpRequest(updatedUser))
+      else {
+        dispatch(googleLoginRequest({email}))
+        console.log("HJ");
+      }
+    console.log(data);
+    },
+    flow: "implicit"
+  });
 
   return (
     <form className={`flex flex-col justify-center items-center w-[80%] gap-y-2 ${loading && 'pointer-events-none'}`} onSubmit={handleSubmit}>
@@ -64,6 +88,11 @@ export const AuthForm = ({ status }) => {
       </div>
       <div className="w-full">
         <button className="w-full rounded-3xl p-1 bg-blue-800 text-white font-bold hover:bg-amber-600 hover:rounded transition-all duration-300 ease-in">{statusEntries[status].header}</button>
+      </div>
+      <div className="flex justify-center items-center gap-2 w-[80%] rounded-3xl p-1 bg-white border-2
+      border-amber-600 text-amber-600 font-bold hover:rounded transition-all duration-300 ease-in sm:w-full" onClick={() => auth()}>
+        <span>{statusEntries[status].auth}</span>
+        <svg xmlns="http://www.w3.org/2000/svg" height="16" width="15.25" viewBox="0 0 488 512"><path d="M488 261.8C488 403.3 391.1 504 248 504 110.8 504 0 393.2 0 256S110.8 8 248 8c66.8 0 123 24.5 166.3 64.9l-67.5 64.9C258.5 52.6 94.3 116.6 94.3 256c0 86.5 69.1 156.6 153.7 156.6 98.2 0 135-70.4 140.8-106.9H248v-85.3h236.1c2.3 12.7 3.9 24.9 3.9 41.4z" /></svg>
       </div>
     </form>
   )

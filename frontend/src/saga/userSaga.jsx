@@ -41,6 +41,41 @@ function* login(user) {
   }
 }
 
+function* googleLogin(user) {
+  console.log(user);
+  const toastId = toast.loading("Logging In...")
+  try {
+    yield put(setLoading(true))
+    const response = yield call(fetch, url + "/auth/googleLogin", {
+      mode: "cors",
+      method: "POST",
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(user.payload)
+    })
+    if (response.ok) {
+      const data = yield response.json()
+      if (data.success) {
+        const token = data["token"]
+        const user = { ...data["data"], token }
+        const details = { user: (({ _id, ...user }) => user)(user), loggedInStatus: true }
+        localStorage.setItem("user", JSON.stringify(details));
+        yield put(setUser(details))
+        yield call(cartCount)
+        yield put(setLoading(false))
+        getSuccessMessage(toastId, "Logged In")
+      }
+      else {
+        getErrorMessage(null, toastId, data.message)
+        yield put(setLoading(false))
+      }
+    }
+  }
+  catch (error) {
+    getErrorMessage(error, toastId, "Something Went Wrong !!")
+    yield put(setLoading(false))
+  }
+}
+
 function* signUp(user) {
   const toastId = toast.loading("Creating account...")
   try {
@@ -105,6 +140,7 @@ function* resetPassword(payload) {
 function* userSaga() {
   yield takeEvery("user/loginRequest", login)
   yield takeEvery("user/signUpRequest", signUp)
+  yield takeEvery("user/googleLoginRequest", googleLogin)
   yield takeEvery("forgetPassword/validateResetPassword", resetPassword)
 }
 

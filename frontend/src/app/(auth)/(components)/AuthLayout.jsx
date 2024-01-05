@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { AuthForm } from "./AuthForm"
 import ForgetForm from "@/app/(auth)/(components)/ForgetPassword"
+import { GoogleOAuthProvider } from "@react-oauth/google";
 
 export const statusEntries = {
   "signin": {
@@ -15,7 +16,8 @@ export const statusEntries = {
         </Link>
       </span>
     ),
-    hidden: ''
+    hidden: '',
+    auth: "Log In With"
   },
   "signup": {
     header: "SIGN UP",
@@ -27,7 +29,8 @@ export const statusEntries = {
         </Link>
       </span>
     ),
-    hidden: 'hidden'
+    hidden: 'hidden',
+    auth: "Sign Up With"
   },
   "forget": {
     header: "FORGOT PASSWORD",
@@ -42,7 +45,7 @@ const AuthLayout = ({ status }) => {
           <div className="border-b-4 border-amber-600 w-1/1 flex justify-center relative md:-top-6">
             <h2 className="text-2xl font-bold text-gray-500">{statusEntries[status]?.header}</h2>
           </div>
-          {status === "forget" ? <ForgetForm /> : <AuthForm status={status} />}
+          {status === "forget" ? <ForgetForm /> : <GoogleOAuthProvider clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID}><AuthForm status={status} /></GoogleOAuthProvider>}
           {statusEntries[status]?.message}
         </div>
       </div>
