@@ -12,28 +12,29 @@ export const googleLogin = async (req, res) => {
     data = await collection.findOne({ email: email });
 
     if (!data)
-      return res
-        .status(200)
-        .send({
-          success: false,
-          message: "Email Id doest not exist",
-          data: {},
-        });
+      return res.status(200).send({
+        success: false,
+        message: "Email Id doest not exist",
+        data: {},
+      });
 
     const token = jwt.sign(
       { userId: data._id, email: data.email },
       process.env.JWT_SECRET_KEY,
       { expiresIn: "6h" }
     );
-    res.cookie("token", "this is testing token");
-    return res
-      .status(200)
-      .send({
-        token,
-        success: true,
-        message: "Login Successfull",
-        data: (({ password, ...data }) => data)(data),
-      });
+    res.cookie("token", "this is testing token", {
+      httpOnly: true,
+      secure: true,
+      sameSite: "none",
+      maxAge: 6 * 60 * 60 * 1000,
+    });
+    return res.status(200).send({
+      token,
+      success: true,
+      message: "Login Successfull",
+      data: (({ password, ...data }) => data)(data),
+    });
   } catch (error) {
     console.error("Error login:", error);
     res.status(500).send({ message: error });
@@ -49,13 +50,11 @@ export const login = async (req, res) => {
     data = await collection.findOne({ email: email });
 
     if (!data)
-      return res
-        .status(200)
-        .send({
-          success: false,
-          message: "Email Id doest not exist",
-          data: {},
-        });
+      return res.status(200).send({
+        success: false,
+        message: "Email Id doest not exist",
+        data: {},
+      });
 
     if (await verifyPassword(pass, data.password)) {
       const token = jwt.sign(
@@ -63,14 +62,12 @@ export const login = async (req, res) => {
         process.env.JWT_SECRET_KEY,
         { expiresIn: "6h" }
       );
-      return res
-        .status(200)
-        .send({
-          token,
-          success: true,
-          message: "Login Successfull",
-          data: (({ password, ...data }) => data)(data),
-        });
+      return res.status(200).send({
+        token,
+        success: true,
+        message: "Login Successfull",
+        data: (({ password, ...data }) => data)(data),
+      });
     }
 
     return res
