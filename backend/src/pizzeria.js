@@ -7,7 +7,7 @@ const server = express();
 server.use(
   cors({
     credentials: true,
-    origin: true,
+    origin: ["https://pizzeria-psi.vercel.app"],
   })
 );
 server.use(express.json());
