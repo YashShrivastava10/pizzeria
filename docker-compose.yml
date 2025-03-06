@@ -1,0 +1,23 @@
+version: "3.7"
+
+services:
+  express:
+    container_name: pizzeria-backend
+    build:
+      context: ./backend
+    ports:
+      - "4000:4000"
+    environment:
+      - JWT_SECRET_KEY=thisIs@JWTkey@10
+      - MONGODB_URI=mongodb+srv://shrivastavayash10:VRU6xJNyyyR4jXPM@cluster1.zxsuzyp.mongodb.net/?retryWrites=true&w=majority&appName=Cluster1
+
+  next:
+    container_name: pizzeria-frontend
+    build:
+      context: ./frontend
+      args:
+        NEXT_PUBLIC_API: http://localhost:4000/api
+        NEXT_PUBLIC_RESEND_API: re_K5XYwDyj_ErTk5jLdF1J7y1ssMkZ7S1Y9
+        NEXT_PUBLIC_GOOGLE_CLIENT_ID: 578823831865-2fd3t95sje3gkv0t39362cal34duq16u.apps.googleusercontent.com
+    ports:
+      - "3000:3000"
